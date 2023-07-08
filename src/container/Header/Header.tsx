@@ -6,6 +6,7 @@ function Header() {
   const arr = [true, false, false, false, false, false];
   const [style, setStyle] = useState(arr);
   const [dropDown, setDropDown] = useState(true);
+  const [text, setText] = useState('Menu');
 
   const selected = (props: number) => {
     const newArr = [...arr];
@@ -88,7 +89,7 @@ function Header() {
                 id="textClicked"
                 className="cursor-pointer text-sm font-normal leading-3 duration-100 hover:bg-gray-800 focus:outline-none "
               >
-                Menu
+                {text || 'Menu'}
               </p>
             </div>
             <svg
@@ -118,12 +119,49 @@ function Header() {
                 dropDown ? 'hidden' : 'block'
               } absolute top-2 w-full rounded text-base  font-normal leading-4 shadow-md`}
             >
-              <DropDownButton title="Home" onClick={() => selected(2)} />
-              <DropDownButton title="Articles" onClick={() => selected(2)} />
-              <DropDownButton title="Users" onClick={() => selected(2)} />
-              <DropDownButton title="Categories" onClick={() => selected(2)} />
-              <DropDownButton title="Signup" onClick={() => selected(2)} />
-              <DropDownButton title="Login" onClick={() => selected(2)} />
+              <DropDownButton
+                title="Home"
+                onClick={() => {
+                  setText('Home');
+                  setDropDown(!dropDown);
+                }}
+              />
+
+              <DropDownButton
+                title="Articles"
+                onClick={() => {
+                  setText('Articles');
+                  setDropDown(!dropDown);
+                }}
+              />
+              <DropDownButton
+                title="Users"
+                onClick={() => {
+                  setText('Users');
+                  setDropDown(!dropDown);
+                }}
+              />
+              <DropDownButton
+                title="Categories"
+                onClick={() => {
+                  setText('Categories');
+                  setDropDown(!dropDown);
+                }}
+              />
+              <DropDownButton
+                title="Signup"
+                onClick={() => {
+                  setText('Signup');
+                  setDropDown(!dropDown);
+                }}
+              />
+              <DropDownButton
+                title="Login"
+                onClick={() => {
+                  setText('Login');
+                  setDropDown(!dropDown);
+                }}
+              />
             </ul>
           </div>
         </div>
