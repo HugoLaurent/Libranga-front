@@ -28,17 +28,22 @@ function Header() {
           {/* For medium and plus sized devices */}
           <ul className="hidden flex-auto space-x-2 md:flex">
             <NavigationButton
-              title="Articles"
+              title="Home"
               onClick={() => selected(0)}
               style={style}
               styleIndex={0}
             />
-
             <NavigationButton
-              title="Users"
+              title="Articles"
               onClick={() => selected(1)}
               style={style}
               styleIndex={1}
+            />
+            <NavigationButton
+              title="Users"
+              onClick={() => selected(2)}
+              style={style}
+              styleIndex={2}
             />
             <NavigationButton
               title="Categories"
@@ -113,6 +118,7 @@ function Header() {
                 dropDown ? 'hidden' : 'block'
               } absolute top-2 w-full rounded text-base  font-normal leading-4 shadow-md`}
             >
+              <DropDownButton title="Home" onClick={() => selected(2)} />
               <DropDownButton title="Articles" onClick={() => selected(2)} />
               <DropDownButton title="Users" onClick={() => selected(2)} />
               <DropDownButton title="Categories" onClick={() => selected(2)} />
