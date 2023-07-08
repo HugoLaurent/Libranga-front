@@ -14,6 +14,11 @@ function NavigationButton({
       <button
         type="button"
         onClick={onClick}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            onClick();
+          }
+        }}
         className={`${
           style[styleIndex]
             ? 'bg-blue-950 text-white'

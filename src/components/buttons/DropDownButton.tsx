@@ -7,7 +7,15 @@ function DropDownButton({
 }) {
   return (
     <li className="cursor-pointer border border-gray-50 bg-gray-50 px-4 py-3 text-xs font-normal leading-3 text-gray-600 duration-100 hover:bg-gray-300 focus:bg-gray-300 focus:outline-none">
-      <button type="button" onClick={onClick}>
+      <button
+        type="button"
+        onClick={onClick}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            onClick();
+          }
+        }}
+      >
         {title}
       </button>
     </li>

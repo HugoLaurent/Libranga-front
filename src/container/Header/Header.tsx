@@ -27,7 +27,7 @@ function Header() {
             </h2>
           </div>
           {/* For medium and plus sized devices */}
-          <ul className="hidden flex-auto space-x-2 md:flex">
+          <ul className="hidden flex-auto space-x-2 lg:flex">
             <NavigationButton
               title="Home"
               onClick={() => selected(0)}
@@ -48,13 +48,13 @@ function Header() {
             />
             <NavigationButton
               title="Categories"
-              onClick={() => selected(2)}
+              onClick={() => selected(3)}
               style={style}
-              styleIndex={2}
+              styleIndex={3}
             />
           </ul>
           <div>
-            <ul className="hidden flex-auto space-x-2 md:flex">
+            <ul className="hidden flex-auto space-x-2 md:hidden lg:flex">
               <li>
                 <button
                   type="button"
@@ -77,7 +77,7 @@ function Header() {
           </div>
         </nav>
         {/* for smaller devcies */}
-        <div className="mt-5 block w-full md:hidden ">
+        <div className="mt-5 block w-full lg:hidden ">
           <button
             type="button"
             onKeyDown={() => setDropDown(!dropDown)}
@@ -85,10 +85,7 @@ function Header() {
             className="flex w-full cursor-pointer items-center justify-between rounded bg-blue-950 px-4 py-3 text-white"
           >
             <div className="flex space-x-2">
-              <p
-                id="textClicked"
-                className="cursor-pointer text-sm font-normal leading-3 duration-100 hover:bg-gray-800 focus:outline-none "
-              >
+              <p className="cursor-pointer text-sm font-normal leading-3 duration-300 hover:bg-gray-800 focus:outline-none ">
                 {text || 'Menu'}
               </p>
             </div>
@@ -117,7 +114,7 @@ function Header() {
               id="list"
               className={`${
                 dropDown ? 'hidden' : 'block'
-              } absolute top-2 w-full rounded text-base  font-normal leading-4 shadow-md`}
+              } absolute top-2 w-full rounded text-base font-normal leading-4 shadow-md`}
             >
               <DropDownButton
                 title="Home"
