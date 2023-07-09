@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchAllUser } from '../../App/reducers/userReducer';
 
-import { UserAttributes, ArticleAttributes } from '../../interface';
+import { UserAttributes } from '../../interface';
 
 function UserContainer() {
   const dispatch = useAppDispatch();

@@ -1,4 +1,5 @@
 export interface ArticleAttributes {
+  created_at: string | number | Date;
   article_id: number;
   manga: string;
   title: string;
@@ -6,6 +7,7 @@ export interface ArticleAttributes {
   likes: number;
   edited?: boolean | null;
   user_id: number;
+  pseudo: string;
 }
 
 export interface UserAttributes {

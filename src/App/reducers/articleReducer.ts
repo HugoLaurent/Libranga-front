@@ -3,9 +3,21 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
+import { ArticleAttributes } from '../../interface';
 
-export const initialState = {
-  mainArticle: [],
+interface ArticleState {
+  mainArticle: {
+    article: ArticleAttributes | null;
+    pseudo: string | null;
+  };
+  article: ArticleAttributes[];
+}
+
+export const initialState: ArticleState = {
+  mainArticle: {
+    article: null,
+    pseudo: null,
+  },
   article: [],
 };
 

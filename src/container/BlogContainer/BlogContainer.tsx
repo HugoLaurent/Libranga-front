@@ -6,8 +6,13 @@ import {
   fetchMainArticle,
 } from '../../App/reducers/articleReducer';
 
+import { ArticleAttributes } from '../../interface';
+
 import like from '../../assets/favicon/like.png';
-import userReducer from '../../App/reducers/userReducer';
+
+interface ImageURLs {
+  [key: number]: string;
+}
 
 function BlogContainer() {
   const [mainArticleImageUrl, setMainArticleImageUrl] = useState('');
@@ -21,14 +26,16 @@ function BlogContainer() {
 
   const mainArticle = useAppSelector(
     (state) => state.articles.mainArticle.article
-  );
+  ) as ArticleAttributes;
   const pseudoMainArticle = useAppSelector(
     (state) => state.articles.mainArticle.pseudo
-  );
+  ) as string;
 
-  const articles = useAppSelector((state) => state.articles.article);
+  const articles = useAppSelector(
+    (state) => state.articles.article
+  ) as ArticleAttributes[];
   const articlesSorted = [...articles].sort((a, b) => b.likes - a.likes);
-  const followingArticles = articlesSorted.slice(1, 3);
+  const followingArticles = articlesSorted.slice(1, 3) as ArticleAttributes[];
 
   async function getImageForMainArticle(manga: string) {
     try {
@@ -47,7 +54,7 @@ function BlogContainer() {
     }
   }, [mainArticle]);
 
-  const [imageURLs, setImageURLs] = useState({});
+  const [imageURLs, setImageURLs] = useState<ImageURLs>({});
 
   async function fetchImages() {
     const followingArticlesUrls = await Promise.all(
@@ -64,18 +71,18 @@ function BlogContainer() {
       })
     );
 
-    setImageURLs({});
-    followingArticles.forEach((article, index) => {
-      imageURLs[article.article_id] = followingArticlesUrls[index];
-    });
+    const newImageURLs = followingArticles.reduce((acc, article, index) => {
+      return { ...acc, [article.article_id]: followingArticlesUrls[index] };
+    }, {});
 
-    setImageURLs(imageURLs);
+    setImageURLs(newImageURLs);
   }
 
   useEffect(() => {
     if (mainArticle && articles.length > 0) {
       fetchImages();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainArticle, articles]);
 
   return (
