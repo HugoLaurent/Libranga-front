@@ -66,7 +66,7 @@ function BlogContainer() {
           return response.data.data[0].images.jpg.image_url;
         } catch (error) {
           setErrorDisplay(true);
-          return ''; // Retourne une chaîne vide en cas d'erreur
+          return 'Akatsuki attacked our data, coming bakc after the fight'; // Retourne une chaîne vide en cas d'erreur
         }
       })
     );

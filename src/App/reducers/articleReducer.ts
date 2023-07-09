@@ -1,8 +1,4 @@
-import {
-  createAction,
-  createAsyncThunk,
-  createReducer,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { ArticleAttributes } from '../../interface';
 
 interface ArticleState {
@@ -43,10 +39,16 @@ export const fetchArticle = createAsyncThunk(
 const articleReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchMainArticle.fulfilled, (state, action) => {
-      state.mainArticle = action.payload;
+      return {
+        ...state,
+        mainArticle: action.payload,
+      };
     })
     .addCase(fetchArticle.fulfilled, (state, action) => {
-      state.article = action.payload;
+      return {
+        ...state,
+        article: action.payload,
+      };
     });
 });
 
