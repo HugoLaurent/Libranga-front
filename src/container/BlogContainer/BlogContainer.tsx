@@ -7,6 +7,7 @@ import {
 } from '../../App/reducers/articleReducer';
 
 import like from '../../assets/favicon/like.png';
+import userReducer from '../../App/reducers/userReducer';
 
 function BlogContainer() {
   const [mainArticleImageUrl, setMainArticleImageUrl] = useState('');
@@ -28,7 +29,6 @@ function BlogContainer() {
   const articles = useAppSelector((state) => state.articles.article);
   const articlesSorted = [...articles].sort((a, b) => b.likes - a.likes);
   const followingArticles = articlesSorted.slice(1, 3);
-  console.log(followingArticles);
 
   async function getImageForMainArticle(manga: string) {
     try {
@@ -89,11 +89,16 @@ function BlogContainer() {
             <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2">
               {mainArticle && (
                 <div>
-                  <img
-                    className="h-64 w-full rounded-lg object-cover object-center"
-                    src={mainArticleImageUrl}
-                    alt="computer"
-                  />
+                  <div className="relative">
+                    <img
+                      className="h-64 w-full rounded-lg object-cover object-center"
+                      src={mainArticleImageUrl}
+                      alt="computer"
+                    />
+                    <p className="absolute inset-0 flex items-center justify-center rounded bg-black bg-opacity-50 p-2 text-3xl font-bold text-white">
+                      {mainArticle.manga}
+                    </p>
+                  </div>
                   <div className="flex w-full justify-between bg-indigo-700 px-8 py-4">
                     <p className="text-sm font-semibold tracking-wide text-white">
                       {pseudoMainArticle}
@@ -125,12 +130,16 @@ function BlogContainer() {
                 <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
                   {followingArticles.map((article) => (
                     <div key={article.article_id}>
-                      <img
-                        className="h-64 w-full rounded-lg object-cover object-center"
-                        src={imageURLs[article.article_id]}
-                        alt="games"
-                      />
-
+                      <div className="relative">
+                        <img
+                          className="h-64 w-full rounded-lg object-cover object-center"
+                          src={imageURLs[article.article_id]}
+                          alt={article.manga}
+                        />
+                        <p className="absolute inset-0 flex items-center justify-center rounded bg-black bg-opacity-50 p-2 text-3xl font-bold text-white">
+                          {article.manga}
+                        </p>
+                      </div>
                       <div className="flex w-full justify-between bg-indigo-700 px-4 py-2">
                         <p className="text-sm font-semibold tracking-wide text-white">
                           {article.pseudo}
