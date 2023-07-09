@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchAllUser } from '../../App/reducers/userReducer';
 
+import { UserAttributes, ArticleAttributes } from '../../interface';
+
 function UserContainer() {
   const dispatch = useAppDispatch();
 
@@ -10,7 +12,7 @@ function UserContainer() {
   }, [dispatch]);
 
   const usersToSort = useAppSelector((state) => state.users.user);
-  const users = [...usersToSort];
+  const users: UserAttributes[] = [...usersToSort];
 
   users.sort((a, b) => b.articles.length - a.articles.length);
 
@@ -25,7 +27,7 @@ function UserContainer() {
       </div>
       <section className="flex w-3/5 flex-wrap justify-around">
         {users &&
-          users.map((user) => {
+          users.map((user: UserAttributes) => {
             const totalLikes = user.articles.reduce(
               (accumulator, article) => accumulator + article.likes,
               0
@@ -47,7 +49,8 @@ function UserContainer() {
                         : `${user.articles.length} article`}
                     </div>
                     <p className="py-3 text-center text-base font-normal text-gray-600">
-                      Librangaka since {new Date(user.created_at).getFullYear()}
+                      Librangaka since{' '}
+                      {new Date(user.created_at ?? '').getFullYear()}
                     </p>
                     <p className="py-3 text-center text-base font-normal text-gray-600">
                       Total Likes: {totalLikes}
