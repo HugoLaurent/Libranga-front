@@ -7,18 +7,10 @@ import axios from 'axios';
 import { ArticleAttributes } from '../../interface';
 
 interface ArticleState {
-  mainArticle: {
-    article: ArticleAttributes | null;
-    pseudo: string | null;
-  };
   article: ArticleAttributes[];
 }
 
 export const initialState: ArticleState = {
-  mainArticle: {
-    article: null,
-    pseudo: null,
-  },
   article: [],
 };
 
@@ -49,25 +41,6 @@ export const articleLiked = createAsyncThunk(
   }
 );
 
-export const mainArticleLiked = createAsyncThunk(
-  'article/mainArticleLiked',
-  async ({
-    articleId,
-    updatedLikes,
-  }: {
-    articleId: number;
-    updatedLikes: number;
-  }) => {
-    const response = await axios.put(
-      `http://localhost:3500/api/article/${articleId}/update`,
-      {
-        likes: updatedLikes,
-      }
-    );
-    return response.data;
-  }
-);
-
 const articleReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchArticle.fulfilled, (state, action) => {
@@ -80,10 +53,6 @@ const articleReducer = createReducer(initialState, (builder) => {
         (article) => article.article_id === articleId
       );
       state.article[articleIndex].likes = newLikes;
-    })
-    .addCase(mainArticleLiked.fulfilled, (state, action) => {
-      const newLikes = action.payload.likes;
-      state.mainArticle.article!.likes = newLikes;
     });
 });
 

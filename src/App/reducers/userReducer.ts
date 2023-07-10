@@ -14,10 +14,10 @@ export const fetchAllUser = createAsyncThunk('user/fetchAllUser', async () => {
 
   const userWithArticles = await Promise.all(
     data.map(async (user: any) => {
-      const test = await fetch(
+      const result = await fetch(
         `http://localhost:3500/api/user/${user.user_id}/article`
       );
-      const articles = await test.json();
+      const articles = await result.json();
       return {
         ...user,
         articles,

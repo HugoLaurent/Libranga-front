@@ -30,16 +30,16 @@ function MostLikedArticle() {
 
   return (
     <>
-      <div id="blog" className="bg-gray-100 px-4 py-12 xl:px-0">
+      <div className="flex-1 px-4 py-12 xl:px-0">
         <div className="container mx-auto">
-          <h1 className="text-center text-3xl tracking-wider text-gray-900 lg:text-5xl">
-            Most liked article from our Blog
+          <h1 className="text-center text-3xl tracking-wider text-gray-900 lg:text-4xl">
+            Most liked article
           </h1>
 
           <div>
             <div className="flex flex-col gap-4 ">
               {followingArticles.map((article) => (
-                <div key={article.article_id} className="">
+                <div key={article.article_id} className="shadow-lg">
                   <p className=" inset-0 flex items-center justify-center rounded-t  bg-blue-950 p-2 text-3xl font-bold text-white">
                     {article.manga}
                   </p>

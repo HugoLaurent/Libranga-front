@@ -2,8 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import Loader from '../../components/loader/Loader';
-import MostLikedArticle from '../MostLikedArticle/MostLikedArticle';
-import UserContainer from '../UserContainer/UserContainer';
+import MostLikedArticle from '../../components/MostLikedArticle/MostLikedArticle';
+import UserContainer from '../../components/UserContainer/UserContainer';
+import MostRecentComment from '../../components/MostRecentComment/MostRecentComment';
 
 // import './home.css';
 
@@ -14,7 +15,7 @@ function Home() {
   async function getRandomImages() {
     try {
       const imageUrls = [];
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 8; i += 1) {
         // because the loop is controlled
         // eslint-disable-next-line no-await-in-loop
         const response = await axios.get(
@@ -87,9 +88,12 @@ function Home() {
             </article>
           )}
         </div>
-        <MostLikedArticle />
-        <UserContainer />
       </div>
+      <section className="mx-10 flex flex-wrap justify-around gap-4">
+        <MostLikedArticle />
+        <MostRecentComment />
+      </section>
+      <UserContainer />
     </div>
   );
 }
