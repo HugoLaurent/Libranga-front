@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import Loader from '../../components/loader/Loader';
+import MostLikedArticle from '../MostLikedArticle/MostLikedArticle';
+import UserContainer from '../UserContainer/UserContainer';
 
 // import './home.css';
 
@@ -82,24 +84,11 @@ function Home() {
                   />
                 </div>
               </div>
-              <div className="ml-6 mt-32">
-                <img src={randomImages[5]} alt="Random anime cover for" />
-                <div className="mt-6 flex items-start">
-                  <img
-                    src={randomImages[6]}
-                    alt="Random anime cover five"
-                    className="h-48 rounded-lg"
-                  />
-                  <img
-                    src={randomImages[7]}
-                    alt="Random anime cover six"
-                    className="object-fit ml-6 h-20 -translate-x-5 rounded-lg object-cover"
-                  />
-                </div>
-              </div>
             </article>
           )}
         </div>
+        <MostLikedArticle />
+        <UserContainer />
       </div>
     </div>
   );

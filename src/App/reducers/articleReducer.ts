@@ -22,14 +22,6 @@ export const initialState: ArticleState = {
   article: [],
 };
 
-export const fetchMainArticle = createAsyncThunk(
-  'article/fetchMainArticle',
-  async () => {
-    const response = await axios.get('http://localhost:3500/api/article/like');
-    return response.data;
-  }
-);
-
 export const fetchArticle = createAsyncThunk(
   'article/fetchArticle',
   async () => {
@@ -78,9 +70,6 @@ export const mainArticleLiked = createAsyncThunk(
 
 const articleReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchMainArticle.fulfilled, (state, action) => {
-      state.mainArticle = action.payload;
-    })
     .addCase(fetchArticle.fulfilled, (state, action) => {
       state.article = action.payload;
     })
