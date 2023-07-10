@@ -1,8 +1,4 @@
-import {
-  createAction,
-  createAsyncThunk,
-  createReducer,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 
 export const initialState = {
   user: [],
@@ -24,8 +20,6 @@ export const fetchAllUser = createAsyncThunk('user/fetchAllUser', async () => {
       };
     })
   );
-
-  console.log(userWithArticles);
 
   return userWithArticles;
 });

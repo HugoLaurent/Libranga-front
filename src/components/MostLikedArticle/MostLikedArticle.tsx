@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { articleLiked, fetchArticle } from '../../App/reducers/articleReducer';
 
@@ -7,6 +8,9 @@ import { ArticleAttributes } from '../../interface';
 import like from '../../assets/favicon/like.png';
 
 function MostLikedArticle() {
+  const cancelButtonRef = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [articleChoosen, setArticleChoosen] = useState<ArticleAttributes>();
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchArticle());
@@ -30,7 +34,7 @@ function MostLikedArticle() {
 
   return (
     <>
-      <div className="flex-1 px-4 py-12 xl:px-0">
+      <div className="flex-2 px-4 py-12 xl:px-0">
         <div className="container mx-auto">
           <h1 className="text-center text-3xl tracking-wider text-gray-900 lg:text-4xl">
             Most liked article

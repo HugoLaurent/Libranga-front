@@ -9,6 +9,7 @@
     "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.15",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "node": "^20.4.0",

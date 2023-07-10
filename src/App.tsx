@@ -1,5 +1,5 @@
 import Header from './container/Header/Header';
-import Home from './container/Home/Home';
+import Home from './Pages/Home/Home';
 
 function App() {
   return (

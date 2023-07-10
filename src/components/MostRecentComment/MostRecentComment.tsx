@@ -13,8 +13,6 @@ function MostRecentComment() {
 
   const comments = useAppSelector((state) => state.comments.comments);
 
-  console.log(comments);
-
   const commentSorted: Comment[] = [...comments].reverse().slice(0, 4);
 
   return (
