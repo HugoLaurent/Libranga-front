@@ -1,7 +1,8 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
+  articleLiked,
+  mainArticleLiked,
   fetchArticle,
   fetchMainArticle,
 } from '../../App/reducers/articleReducer';
@@ -10,14 +11,7 @@ import { ArticleAttributes } from '../../interface';
 
 import like from '../../assets/favicon/like.png';
 
-interface ImageURLs {
-  [key: number]: string;
-}
-
 function MostLikedArticle() {
-  const [mainArticleImageUrl, setMainArticleImageUrl] = useState('');
-  const [errorDisplay, setErrorDisplay] = useState(false);
-
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchArticle());
@@ -36,54 +30,25 @@ function MostLikedArticle() {
   ) as ArticleAttributes[];
   const articlesSorted = [...articles].sort((a, b) => b.likes - a.likes);
   const followingArticles = articlesSorted.slice(1, 3) as ArticleAttributes[];
-
-  async function getImageForMainArticle(manga: string) {
-    try {
-      const response = await axios.get(
-        `https://api.jikan.moe/v4/anime?q=${manga}&sfw`
-      );
-      setMainArticleImageUrl(response.data.data[0].images.jpg.large_image_url);
-    } catch (error) {
-      console.log(error);
-    }
+  function handleMainLikePlus(
+    e: React.MouseEvent<HTMLButtonElement>,
+    articleId: number,
+    likes: number
+  ) {
+    e.preventDefault();
+    const updatedLikes = likes + 1;
+    dispatch(mainArticleLiked({ articleId, updatedLikes }));
   }
 
-  useEffect(() => {
-    if (mainArticle) {
-      getImageForMainArticle(mainArticle.manga);
-    }
-  }, [mainArticle]);
-
-  const [imageURLs, setImageURLs] = useState<ImageURLs>({});
-
-  async function fetchImages() {
-    const followingArticlesUrls = await Promise.all(
-      followingArticles.map(async (article) => {
-        try {
-          const response = await axios.get(
-            `https://api.jikan.moe/v4/anime?q=${article.manga}&sfw`
-          );
-          return response.data.data[0].images.jpg.image_url;
-        } catch (error) {
-          setErrorDisplay(true);
-          return 'Akatsuki attacked our data, coming bakc after the fight'; // Retourne une chaîne vide en cas d'erreur
-        }
-      })
-    );
-
-    const newImageURLs = followingArticles.reduce((acc, article, index) => {
-      return { ...acc, [article.article_id]: followingArticlesUrls[index] };
-    }, {});
-
-    setImageURLs(newImageURLs);
+  function handleArticlesLikePlus(
+    e: React.MouseEvent<HTMLButtonElement>,
+    articleId: number,
+    likes: number
+  ) {
+    e.preventDefault();
+    const updatedLikes = likes + 1;
+    dispatch(articleLiked({ articleId, updatedLikes }));
   }
-
-  useEffect(() => {
-    if (mainArticle && articles.length > 0) {
-      fetchImages();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainArticle, articles]);
 
   return (
     <>
@@ -92,26 +57,14 @@ function MostLikedArticle() {
           <h1 className="text-center text-3xl tracking-wider text-gray-900 lg:text-5xl">
             Most liked article from our Blog
           </h1>
-          <div className="mb-12 mb-32 lg:mt-24">
+          <div className="mb-12  lg:mt-24">
             <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2">
               {mainArticle && (
                 <div>
-                  {!errorDisplay ? (
-                    <div className="relative">
-                      <img
-                        className="h-64 w-full rounded-t object-cover object-center"
-                        src={mainArticleImageUrl}
-                        alt="computer"
-                      />
-                      <p className="absolute inset-0 flex items-center justify-center rounded-t bg-black bg-opacity-50 p-2 text-3xl font-bold text-white">
-                        {mainArticle.manga}
-                      </p>
-                    </div>
-                  ) : (
-                    <p className=" inset-0 flex items-center justify-center rounded-t  bg-blue-950 p-2 text-3xl font-bold text-white">
-                      {mainArticle.manga}
-                    </p>
-                  )}
+                  <p className=" inset-0 flex items-center justify-center rounded-t  bg-blue-950 p-2 text-3xl font-bold text-white">
+                    {mainArticle.manga}
+                  </p>
+
                   <div className="flex w-full justify-between bg-indigo-700 px-8 py-4">
                     <p className="text-sm font-semibold tracking-wide text-white">
                       {pseudoMainArticle}
@@ -131,7 +84,18 @@ function MostLikedArticle() {
                       <p className="flex items-center text-lg tracking-wide text-indigo-500">
                         {mainArticle.likes}{' '}
                         <span>
-                          <img src={like} alt="like symbol" className="w-8" />
+                          <button
+                            type="button"
+                            onClick={(e) =>
+                              handleMainLikePlus(
+                                e,
+                                mainArticle.article_id,
+                                mainArticle.likes
+                              )
+                            }
+                          >
+                            <img src={like} alt="like symbol" className="w-8" />
+                          </button>
                         </span>
                       </p>
                     </div>
@@ -143,22 +107,10 @@ function MostLikedArticle() {
                 <div className="flex flex-col gap-4 ">
                   {followingArticles.map((article) => (
                     <div key={article.article_id} className="">
-                      {!errorDisplay ? (
-                        <div className="relative">
-                          <img
-                            className="h-64 w-full rounded-lg object-cover object-center"
-                            src={imageURLs[article.article_id]}
-                            alt={article.manga}
-                          />
-                          <p className="absolute inset-0 flex items-center justify-center rounded-t  bg-black bg-opacity-50 p-2 text-3xl font-bold text-white">
-                            {article.manga}
-                          </p>
-                        </div>
-                      ) : (
-                        <p className=" inset-0 flex items-center justify-center rounded-t  bg-blue-950 p-2 text-3xl font-bold text-white">
-                          {article.manga}
-                        </p>
-                      )}
+                      <p className=" inset-0 flex items-center justify-center rounded-t  bg-blue-950 p-2 text-3xl font-bold text-white">
+                        {article.manga}
+                      </p>
+
                       <div className="flex w-full justify-between bg-indigo-700 px-4 py-2">
                         <p className="text-sm font-semibold tracking-wide text-white">
                           {article.pseudo}
@@ -177,13 +129,24 @@ function MostLikedArticle() {
                         <div className="mt-4 flex w-full cursor-pointer items-center justify-end">
                           <p className="flex items-center text-lg tracking-wide text-indigo-500">
                             {article.likes}{' '}
-                            <span>
-                              <img
-                                src={like}
-                                alt="like symbol"
-                                className="w-8"
-                              />
-                            </span>
+                            <button
+                              type="button"
+                              onClick={(e) =>
+                                handleArticlesLikePlus(
+                                  e,
+                                  article.article_id,
+                                  article.likes
+                                )
+                              }
+                            >
+                              <span>
+                                <img
+                                  src={like}
+                                  alt="like symbol"
+                                  className="w-8"
+                                />
+                              </span>
+                            </button>
                           </p>
                         </div>
                       </div>

@@ -38,21 +38,63 @@ export const fetchArticle = createAsyncThunk(
   }
 );
 
-export const articleLiked = createAction('article/articleLiked');
+export const articleLiked = createAsyncThunk(
+  'article/articleLiked',
+  async ({
+    articleId,
+    updatedLikes,
+  }: {
+    articleId: number;
+    updatedLikes: number;
+  }) => {
+    const response = await axios.put(
+      `http://localhost:3500/api/article/${articleId}/update`,
+      {
+        likes: updatedLikes,
+      }
+    );
+    return response.data;
+  }
+);
+
+export const mainArticleLiked = createAsyncThunk(
+  'article/mainArticleLiked',
+  async ({
+    articleId,
+    updatedLikes,
+  }: {
+    articleId: number;
+    updatedLikes: number;
+  }) => {
+    const response = await axios.put(
+      `http://localhost:3500/api/article/${articleId}/update`,
+      {
+        likes: updatedLikes,
+      }
+    );
+    return response.data;
+  }
+);
 
 const articleReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchMainArticle.fulfilled, (state, action) => {
-      return {
-        ...state,
-        mainArticle: action.payload,
-      };
+      state.mainArticle = action.payload;
     })
     .addCase(fetchArticle.fulfilled, (state, action) => {
-      return {
-        ...state,
-        article: action.payload,
-      };
+      state.article = action.payload;
+    })
+    .addCase(articleLiked.fulfilled, (state, action) => {
+      const newLikes = action.payload.likes;
+      const articleId = action.payload.article_id;
+      const articleIndex = state.article.findIndex(
+        (article) => article.article_id === articleId
+      );
+      state.article[articleIndex].likes = newLikes;
+    })
+    .addCase(mainArticleLiked.fulfilled, (state, action) => {
+      const newLikes = action.payload.likes;
+      state.mainArticle.article!.likes = newLikes;
     });
 });
 

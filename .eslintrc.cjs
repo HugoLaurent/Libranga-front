@@ -44,6 +44,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'no-param-reassign': ['error', { props: false }],
     'react/jsx-props-no-spreading': 0,
     'jsx-a11y/label-has-associated-control': [2, { assert: 'either' }],
     'linebreak-style': 0,
