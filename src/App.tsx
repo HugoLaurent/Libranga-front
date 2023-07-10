@@ -1,6 +1,6 @@
 import Header from './container/Header/Header';
 import Home from './container/Home/Home';
-import BlogContainer from './container/BlogContainer/BlogContainer';
+import MostLikedArticle from './container/MostLikedArticle/MostLikedArticle';
 import UserContainer from './container/UserContainer/UserContainer';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="text-center">
       <Header />
       <Home />
-      <BlogContainer />
+      <MostLikedArticle />
       <UserContainer />
     </div>
   );

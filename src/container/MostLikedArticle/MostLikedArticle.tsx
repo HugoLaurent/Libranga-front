@@ -14,7 +14,7 @@ interface ImageURLs {
   [key: number]: string;
 }
 
-function BlogContainer() {
+function MostLikedArticle() {
   const [mainArticleImageUrl, setMainArticleImageUrl] = useState('');
   const [errorDisplay, setErrorDisplay] = useState(false);
 
@@ -199,4 +199,4 @@ function BlogContainer() {
   );
 }
 
-export default BlogContainer;
+export default MostLikedArticle;
