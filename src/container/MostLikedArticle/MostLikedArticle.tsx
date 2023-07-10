@@ -92,7 +92,7 @@ function MostLikedArticle() {
           <h1 className="text-center text-3xl tracking-wider text-gray-900 lg:text-5xl">
             Most liked article from our Blog
           </h1>
-          <div className="mt-12 lg:mt-24">
+          <div className="mb-12 mb-32 lg:mt-24">
             <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2">
               {mainArticle && (
                 <div>
@@ -140,9 +140,9 @@ function MostLikedArticle() {
                 </div>
               )}
               <div>
-                <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 ">
+                <div className="flex flex-col gap-4 ">
                   {followingArticles.map((article) => (
-                    <div key={article.article_id}>
+                    <div key={article.article_id} className="">
                       {!errorDisplay ? (
                         <div className="relative">
                           <img
@@ -167,11 +167,11 @@ function MostLikedArticle() {
                           {new Date(article.created_at).toDateString()}
                         </p>
                       </div>
-                      <div className="rounded-bl-3xl rounded-br-3xl  bg-white px-3 py-4 lg:px-6">
+                      <div className="rounded-bl-3xl rounded-br-3xl bg-white px-3 py-4 lg:px-6">
                         <h1 className="text-lg font-semibold tracking-wider text-gray-900">
                           {article.title}
                         </h1>
-                        <p className="mt-2 text-ellipsis pr-4 text-sm  tracking-wide text-gray-700 lg:text-base lg:leading-8">
+                        <p className="mt-2 line-clamp-2 overflow-hidden text-sm text-gray-700 lg:text-base lg:leading-8">
                           {article.content}
                         </p>
                         <div className="mt-4 flex w-full cursor-pointer items-center justify-end">

@@ -1,4 +1,9 @@
-import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
+import {
+  createAction,
+  createAsyncThunk,
+  createReducer,
+} from '@reduxjs/toolkit';
+import axios from 'axios';
 import { ArticleAttributes } from '../../interface';
 
 interface ArticleState {
@@ -20,21 +25,20 @@ export const initialState: ArticleState = {
 export const fetchMainArticle = createAsyncThunk(
   'article/fetchMainArticle',
   async () => {
-    const response = await fetch('http://localhost:3500/api/article/like');
-    const data = await response.json();
-
-    return data;
+    const response = await axios.get('http://localhost:3500/api/article/like');
+    return response.data;
   }
 );
 
 export const fetchArticle = createAsyncThunk(
   'article/fetchArticle',
   async () => {
-    const response = await fetch('http://localhost:3500/api/article/all');
-    const data = await response.json();
-    return data;
+    const response = await axios.get('http://localhost:3500/api/article/all');
+    return response.data;
   }
 );
+
+export const articleLiked = createAction('article/articleLiked');
 
 const articleReducer = createReducer(initialState, (builder) => {
   builder
