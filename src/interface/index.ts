@@ -22,3 +22,15 @@ export interface UserAttributes {
   articles: ArticleAttributes[];
   created_at: Date;
 }
+
+export interface CommentAttributes {
+  comment_id: string;
+  title: string;
+  content: string;
+  created_at: string;
+}
+
+export interface CommentWithPseudo {
+  comment: CommentAttributes;
+  pseudo: string;
+}

@@ -1,5 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { articleLiked, fetchArticle } from '../../App/reducers/articleReducer';
 
@@ -8,9 +7,6 @@ import { ArticleAttributes } from '../../interface';
 import like from '../../assets/favicon/like.png';
 
 function MostLikedArticle() {
-  const cancelButtonRef = useRef(null);
-  const [open, setOpen] = useState(false);
-  const [articleChoosen, setArticleChoosen] = useState<ArticleAttributes>();
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchArticle());

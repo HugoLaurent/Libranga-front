@@ -1,20 +1,21 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
-import like from '../../assets/favicon/like.png';
 import { fetchComments } from '../../App/reducers/commentReducer';
+
+import { CommentWithPseudo } from '../../interface';
 
 function MostRecentComment() {
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     dispatch(fetchComments());
   }, [dispatch]);
 
   const comments = useAppSelector((state) => state.comments.comments);
 
-  const commentSorted: Comment[] = [...comments].reverse().slice(0, 4);
-
+  const commentSorted: CommentWithPseudo[] = [...comments]
+    .reverse()
+    .slice(0, 4);
   return (
     <>
       <div className="w-min-[30%]  px-4 py-12 xl:px-0">
@@ -41,12 +42,6 @@ function MostRecentComment() {
                     <div className="mt-4 flex w-full cursor-pointer items-center  justify-between">
                       <p className="mt-2 line-clamp-2 overflow-hidden text-sm text-gray-700 lg:text-base lg:leading-8">
                         {new Date(comment.comment.created_at).toDateString()}
-                      </p>
-                      <p className="flex items-center text-lg tracking-wide text-indigo-500">
-                        {comment.comment.likes}
-                        <span>
-                          <img src={like} alt="like symbol" className="w-8" />
-                        </span>
                       </p>
                     </div>
                   </div>
