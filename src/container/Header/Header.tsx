@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DropDownButton from '../../components/buttons/DropDownButton';
 import NavigationButton from '../../components/buttons/NavigationButton';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
   const arr = [true, false, false, false, false, false];
@@ -28,30 +29,38 @@ function Header() {
           </div>
           {/* For medium and plus sized devices */}
           <ul className="hidden flex-auto space-x-2 lg:flex">
-            <NavigationButton
-              title="Home"
-              onClick={() => selected(0)}
-              style={style}
-              styleIndex={0}
-            />
-            <NavigationButton
-              title="Articles"
-              onClick={() => selected(1)}
-              style={style}
-              styleIndex={1}
-            />
-            <NavigationButton
-              title="Users"
-              onClick={() => selected(2)}
-              style={style}
-              styleIndex={2}
-            />
-            <NavigationButton
-              title="Categories"
-              onClick={() => selected(3)}
-              style={style}
-              styleIndex={3}
-            />
+            <NavLink to="/">
+              <NavigationButton
+                title="Home"
+                onClick={() => selected(0)}
+                style={style}
+                styleIndex={0}
+              />
+            </NavLink>
+            <NavLink to="article">
+              <NavigationButton
+                title="Articles"
+                onClick={() => selected(1)}
+                style={style}
+                styleIndex={1}
+              />
+            </NavLink>
+            <NavLink to={'/'}>
+              <NavigationButton
+                title="Users"
+                onClick={() => selected(2)}
+                style={style}
+                styleIndex={2}
+              />
+            </NavLink>
+            <NavLink to={'/'}>
+              <NavigationButton
+                title="Categories"
+                onClick={() => selected(3)}
+                style={style}
+                styleIndex={3}
+              />
+            </NavLink>
           </ul>
           <div>
             <ul className="hidden flex-auto space-x-2 md:hidden lg:flex">

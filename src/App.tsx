@@ -1,12 +1,17 @@
+import { Routes, Route } from 'react-router-dom';
 import Header from './container/Header/Header';
-import Home from './Pages/Home/Home';
+import Home from './pages/Home/Home';
+import Article from './pages/Article/Article';
 
 function App() {
   return (
-    <div className="text-center">
+    <>
       <Header />
-      <Home />
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/article" element={<Article />} />
+      </Routes>
+    </>
   );
 }
 
