@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { facts } from '../../assets/facts/facts';
+import { useAppDispatch } from '../../hooks/redux';
+import { addUser } from '../../App/reducers/userReducer';
 
 function Signup() {
+  const dispatch = useAppDispatch();
   const [showpass, setShowPass] = useState(false);
   const [fact, setFact] = useState(0);
   const [formData, setFormData] = useState({
@@ -30,6 +33,7 @@ function Signup() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    dispatch(addUser(formData));
     console.log(formData);
   }
 
