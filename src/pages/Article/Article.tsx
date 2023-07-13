@@ -1,7 +1,11 @@
-import Carousel from '../../components/Carousel/Carousel';
+import CategoryNavigation from '../../components/CategoryNavigation/CategoryNavigation';
 
 function Article() {
-  return <div className="Article"></div>;
+  return (
+    <div className="Article">
+      <CategoryNavigation />
+    </div>
+  );
 }
 
 export default Article;
