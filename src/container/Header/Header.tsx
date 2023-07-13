@@ -65,13 +65,15 @@ function Header() {
           <div>
             <ul className="hidden flex-auto space-x-2 md:hidden lg:flex">
               <li>
-                <button
-                  type="button"
-                  className="text-gray-600cursor-pointer rounded
-                  border  border-white bg-gray-50 px-3 py-2.5  text-xs font-normal leading-3 shadow-md focus:outline-none"
-                >
-                  Login
-                </button>
+                <NavLink to="/login">
+                  <button
+                    type="button"
+                    className="text-gray-600cursor-pointer rounded
+                    border  border-white bg-gray-50 px-3 py-2.5  text-xs font-normal leading-3 shadow-md focus:outline-none"
+                  >
+                    Login
+                  </button>
+                </NavLink>
               </li>
               <li>
                 <button
