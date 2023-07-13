@@ -63,6 +63,10 @@ function Article() {
               dropDown ? 'hidden' : 'block'
             } absolute top-2 w-1/2 rounded text-base font-normal leading-4 shadow-md`}
           >
+            <DropDownButton
+              title="All"
+              onClick={(e) => handleClickedCategory(e, 0, 'All')}
+            ></DropDownButton>
             {categoriesList &&
               categoriesList.map((item) => (
                 <DropDownButton
@@ -77,6 +81,13 @@ function Article() {
       </div>
       <div className="Article flex w-full flex-col items-center">
         <ul className="mr-2 hidden w-[80%] justify-around lg:flex ">
+          <button
+            key="0"
+            className="rounded-lg bg-blue-500 px-4 py-2 text-blue-100 duration-300 hover:bg-blue-600"
+            onClick={(e) => handleClickedCategory(e, 0, 'all')}
+          >
+            <li key={0}>All</li>
+          </button>
           {categoriesList &&
             categoriesList.map((item) => (
               <button
