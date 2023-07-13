@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { articleLiked, fetchArticle } from '../../App/reducers/articleReducer';
+import { fetchArticle } from '../../App/reducers/articleReducer';
 
 import { ArticleAttributes } from '../../interface';
 
-import like from '../../assets/favicon/like.png';
+import ModelArticle from '../ModelArticle/ModelArticle';
 
 function MostLikedArticle() {
   const dispatch = useAppDispatch();
@@ -18,16 +18,6 @@ function MostLikedArticle() {
   const articlesSorted = [...articles].sort((a, b) => b.likes - a.likes);
   const followingArticles = articlesSorted.slice(0, 3) as ArticleAttributes[];
 
-  function handleArticlesLikePlus(
-    e: React.MouseEvent<HTMLButtonElement>,
-    articleId: number,
-    likes: number
-  ) {
-    e.preventDefault();
-    const updatedLikes = likes + 1;
-    dispatch(articleLiked({ articleId, updatedLikes }));
-  }
-
   return (
     <>
       <div className="flex-2 px-4 py-12 xl:px-0">
@@ -39,47 +29,16 @@ function MostLikedArticle() {
           <div>
             <div className="flex flex-col gap-4 ">
               {followingArticles.map((article) => (
-                <div key={article.article_id} className="shadow-lg">
-                  <p className=" inset-0 flex items-center justify-center rounded-t  bg-blue-950 p-2 text-3xl font-bold text-white">
-                    {article.manga}
-                  </p>
-
-                  <div className="flex w-full justify-between bg-indigo-700 px-4 py-2">
-                    <p className="text-sm font-semibold tracking-wide text-white">
-                      {article.pseudo}
-                    </p>
-                    <p className="text-sm font-semibold tracking-wide text-white">
-                      {new Date(article.created_at).toDateString()}
-                    </p>
-                  </div>
-                  <div className="rounded-bl-3xl rounded-br-3xl bg-white px-3 py-4 lg:px-6">
-                    <h1 className="text-lg font-semibold tracking-wider text-gray-900">
-                      {article.title}
-                    </h1>
-                    <p className="mt-2 line-clamp-2 overflow-hidden text-sm text-gray-700 lg:text-base lg:leading-8">
-                      {article.content}
-                    </p>
-                    <div className="mt-4 flex w-full cursor-pointer items-center justify-end">
-                      <p className="flex items-center text-lg tracking-wide text-indigo-500">
-                        {article.likes}{' '}
-                        <button
-                          type="button"
-                          onClick={(e) =>
-                            handleArticlesLikePlus(
-                              e,
-                              article.article_id,
-                              article.likes
-                            )
-                          }
-                        >
-                          <span>
-                            <img src={like} alt="like symbol" className="w-8" />
-                          </span>
-                        </button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <ModelArticle
+                  key={article.article_id}
+                  article_id={article.article_id}
+                  manga={article.manga}
+                  pseudo={article.pseudo}
+                  date={article.created_at}
+                  title={article.title}
+                  content={article.content}
+                  likes={article.likes}
+                />
               ))}
             </div>
           </div>

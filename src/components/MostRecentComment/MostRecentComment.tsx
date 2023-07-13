@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchComments } from '../../App/reducers/commentReducer';
 
 import { CommentAttributes } from '../../interface';
+import ModelComment from '../ModelComment/ModelComment';
 
 function MostRecentComment() {
   const dispatch = useAppDispatch();
@@ -12,7 +13,6 @@ function MostRecentComment() {
   }, [dispatch]);
 
   const comments = useAppSelector((state) => state.comments.comments);
-  console.log(comments);
 
   const commentSorted: CommentAttributes[] = [...comments]
     .reverse()
@@ -28,24 +28,13 @@ function MostRecentComment() {
             <div className="flex flex-col gap-4 ">
               {commentSorted.map((comment) => (
                 <div key={comment.comment_id} className="shadow-lg">
-                  <div className="flex w-full justify-between bg-indigo-700 px-4 py-2">
-                    <p className="text-sm font-semibold tracking-wide text-white">
-                      {comment.title}
-                    </p>
-                    <p className="text-sm font-semibold tracking-wide text-white">
-                      {comment.pseudo}
-                    </p>
-                  </div>
-                  <div className="rounded-bl-3xl rounded-br-3xl bg-white px-3 py-4 lg:px-6">
-                    <p className="text-lg font-semibold tracking-wider text-gray-900">
-                      {comment.content}
-                    </p>
-                    <div className="mt-4 flex w-full cursor-pointer items-center  justify-between">
-                      <p className="mt-2 line-clamp-2 overflow-hidden text-sm text-gray-700 lg:text-base lg:leading-8">
-                        {new Date(comment.created_at).toDateString()}
-                      </p>
-                    </div>
-                  </div>
+                  <ModelComment
+                    comment_id={comment.comment_id}
+                    title={comment.title}
+                    content={comment.content}
+                    pseudo={comment.pseudo}
+                    date={comment.created_at}
+                  />
                 </div>
               ))}
             </div>
