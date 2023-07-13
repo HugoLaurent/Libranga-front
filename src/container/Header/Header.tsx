@@ -19,7 +19,7 @@ function Header() {
   };
 
   return (
-    <div className="2xl:container 2xl:mx-auto">
+    <div className="3xl:container 2xl:mx-auto">
       <div className="rounded bg-white px-7 py-5 shadow-lg">
         <nav className="flex justify-between">
           <div className="flex items-center space-x-3 pr-6 lg:pr-16">
@@ -28,7 +28,7 @@ function Header() {
             </h2>
           </div>
           {/* For medium and plus sized devices */}
-          <ul className="hidden flex-auto space-x-2 lg:flex">
+          <ul className="hidden flex-auto gap-4 space-x-2 lg:flex">
             <NavLink to="/">
               <NavigationButton
                 title="Home"
