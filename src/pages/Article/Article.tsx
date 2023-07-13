@@ -76,7 +76,7 @@ function Article() {
         </div>
       </div>
       <div className="Article flex w-full flex-col items-center">
-        <ul className="mr-2  hidden  w-[80%] justify-around lg:flex ">
+        <ul className="mr-2 hidden w-[80%] justify-around lg:flex ">
           {categoriesList &&
             categoriesList.map((item) => (
               <button
