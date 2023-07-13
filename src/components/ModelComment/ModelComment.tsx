@@ -22,9 +22,7 @@ function ModelComment({
         </p>
       </div>
       <div className="rounded-bl-3xl rounded-br-3xl bg-white px-3 py-4 lg:px-6">
-        <p className="text-lg font-semibold tracking-wider text-gray-900">
-          {content}
-        </p>
+        <p className=" tracking-wider text-gray-900">{content}</p>
         <div className="mt-4 flex w-full cursor-pointer items-center  justify-between">
           <p className="mt-2 line-clamp-2 overflow-hidden text-sm text-gray-700 lg:text-base lg:leading-8">
             {new Date(date).toDateString()}

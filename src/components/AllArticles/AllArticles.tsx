@@ -40,10 +40,10 @@ function AllArticles({
           </h1>
 
           <div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-wrap justify-around gap-3">
               {category === 0 ? (
                 articles.map((article) => (
-                  <div>
+                  <div className="">
                     <ModelArticle
                       key={article.article_id}
                       article_id={article.article_id}
@@ -54,23 +54,27 @@ function AllArticles({
                       content={article.content}
                       likes={article.likes}
                     />
-                    {article.Comments.map((comment) => (
-                      <div key={comment.comment_id} className="shadow-lg">
-                        <ModelComment
-                          article_id={comment.comment_id}
-                          pseudo={article.pseudo}
-                          date={comment.created_at}
-                          title={comment.title}
-                          content={comment.content}
-                          likes={comment.likes}
-                        />
-                      </div>
-                    ))}
+                    <div className="flex flex-wrap">
+                      {article.Comments.map((comment) => (
+                        <div
+                          key={comment.comment_id}
+                          className=" flex w-1/3 shadow-lg"
+                        >
+                          <ModelComment
+                            article_id={comment.comment_id}
+                            pseudo={article.pseudo}
+                            date={comment.created_at}
+                            content={comment.content}
+                            likes={comment.likes}
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))
               ) : articlesChoosen && articlesChoosen.length > 0 ? (
                 articlesChoosen.map((article) => (
-                  <div>
+                  <div className="w-1/3">
                     <ModelArticle
                       key={article.article_id}
                       article_id={article.article_id}
