@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { facts } from '../../../assets/facts/facts';
+import { facts } from '../../assets/facts/facts';
 function Login() {
   const [showpass, setShowPass] = useState(false);
   const [fact, setFact] = useState(0);
@@ -131,7 +131,7 @@ function Login() {
                 role="button"
                 className="w-full rounded border bg-indigo-700 py-4 text-sm font-semibold leading-none text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-offset-2"
               >
-                Create my account
+                Log in{' '}
               </button>
             </div>
           </div>

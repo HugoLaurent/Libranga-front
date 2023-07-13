@@ -76,13 +76,15 @@ function Header() {
                 </NavLink>
               </li>
               <li>
-                <button
-                  type="button"
-                  className="text-gray-600cursor-pointer rounded border
-                  border-white  bg-blue-950 px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
-                >
-                  Signup
-                </button>
+                <NavLink to="/signup">
+                  <button
+                    type="button"
+                    className="text-gray-600cursor-pointer rounded border
+                    border-white  bg-blue-950 px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
+                  >
+                    Signup
+                  </button>
+                </NavLink>
               </li>
             </ul>
           </div>
