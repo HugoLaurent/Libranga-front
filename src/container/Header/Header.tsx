@@ -125,21 +125,25 @@ function Header() {
                 dropDown ? 'hidden' : 'block'
               } absolute top-2 w-full rounded text-base font-normal leading-4 shadow-md`}
             >
-              <DropDownButton
-                title="Home"
-                onClick={() => {
-                  setText('Home');
-                  setDropDown(!dropDown);
-                }}
-              />
+              <NavLink to="/">
+                <DropDownButton
+                  title="Home"
+                  onClick={() => {
+                    setText('Home');
+                    setDropDown(!dropDown);
+                  }}
+                />
+              </NavLink>
 
-              <DropDownButton
-                title="Articles"
-                onClick={() => {
-                  setText('Articles');
-                  setDropDown(!dropDown);
-                }}
-              />
+              <NavLink to="/article">
+                <DropDownButton
+                  title="Articles"
+                  onClick={() => {
+                    setText('Articles');
+                    setDropDown(!dropDown);
+                  }}
+                />
+              </NavLink>
               <DropDownButton
                 title="Users"
                 onClick={() => {
