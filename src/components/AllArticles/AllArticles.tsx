@@ -44,6 +44,7 @@ function AllArticles({
     setPaginationMin(paginationMin + 6);
     setPaginationMax(paginationMax + 6);
     setPage(page + 1);
+    window.scrollTo(0, 0);
   }
 
   function pagiginationMin() {
@@ -51,6 +52,7 @@ function AllArticles({
     setPaginationMin(paginationMin - 6);
     setPaginationMax(paginationMax - 6);
     setPage(page - 1);
+    window.scrollTo(0, 0);
   }
 
   return (
