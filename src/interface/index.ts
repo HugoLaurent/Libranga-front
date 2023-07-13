@@ -1,4 +1,5 @@
 export interface ArticleAttributes {
+  date: string | number | Date;
   created_at: string | number | Date;
   article_id: number;
   manga: string;
