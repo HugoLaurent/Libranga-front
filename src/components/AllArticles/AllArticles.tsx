@@ -35,7 +35,7 @@ function AllArticles({
   const [page, setPage] = useState(1);
 
   const articleSlice = articles.slice(paginationMin, paginationMax);
-  const articlesChoosenSlice = articlesChoosen.slice(
+  const articlesChoosenSlice = articlesChoosen?.slice(
     paginationMin,
     paginationMax
   );
