@@ -16,6 +16,8 @@ function UserContainer() {
 
   users.sort((a, b) => b.articles.length - a.articles.length);
 
+  console.log(users);
+
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="container mx-auto flex justify-center pt-16">
@@ -52,9 +54,14 @@ function UserContainer() {
                       Librangaka since{' '}
                       {new Date(user.created_at ?? '').getFullYear()}
                     </p>
-                    <p className="py-3 text-center text-base font-normal text-gray-600">
-                      Total Likes: {totalLikes}
-                    </p>
+                    <div className="flex flex-col gap-1">
+                      <p className="text-center text-base font-normal text-gray-600">
+                        Total Comments: {user.Comments.length}
+                      </p>
+                      <p className="text-center text-base font-normal text-gray-600">
+                        Total Likes: {totalLikes}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
