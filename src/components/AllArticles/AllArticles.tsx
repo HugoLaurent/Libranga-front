@@ -21,6 +21,12 @@ function AllArticles({
       : dispatch(fetchCategoryWithArticle(category));
   }, [dispatch, stateChange, category]);
 
+  useEffect(() => {
+    setPage(1);
+    setPaginationMin(0);
+    setPaginationMax(6);
+  }, [category]);
+
   const articles = useAppSelector(
     (state) => state.articles.article
   ) as ArticleAttributes[];
@@ -41,6 +47,9 @@ function AllArticles({
   );
 
   function pagiginationPlus() {
+    if (checkPagination() === page) {
+      return;
+    }
     setPaginationMin(paginationMin + 6);
     setPaginationMax(paginationMax + 6);
     setPage(page + 1);
@@ -53,6 +62,16 @@ function AllArticles({
     setPaginationMax(paginationMax - 6);
     setPage(page - 1);
     window.scrollTo(0, 0);
+  }
+
+  function checkPagination() {
+    if (category === 0) {
+      const paginationLimit = Math.ceil(articles.length / 6);
+      return paginationLimit;
+    } else {
+      const paginationLimit = Math.ceil(articlesChoosen.length / 6);
+      return paginationLimit;
+    }
   }
 
   return (

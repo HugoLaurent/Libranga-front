@@ -16,7 +16,7 @@ function Article() {
 
   const categoriesList = useAppSelector((state) => state.categories.categories);
 
-  function handleClickedCategory(e: Event, id: Number, menuName: String) {
+  function handleClickedCategory(e: Event, id: number, menuName: string) {
     e.preventDefault();
     setCategory(id);
     setStateChange(true);
