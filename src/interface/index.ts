@@ -1,4 +1,5 @@
 export interface ArticleAttributes {
+  Comments: any;
   date: string | number | Date;
   created_at: string | number | Date;
   article_id: number;
@@ -22,10 +23,11 @@ export interface UserAttributes {
   role: number;
   articles: ArticleAttributes[];
   created_at: Date;
+  Comments: CommentAttributes[];
 }
 
 export interface CommentAttributes {
-  comment_id: string;
+  comment_id: number;
   title: string;
   content: string;
   created_at: string;

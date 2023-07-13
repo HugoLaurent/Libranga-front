@@ -108,7 +108,7 @@ function AllArticles({
                   <div key={comment.comment_id} className="shadow-lg">
                     <ModelComment
                       article_id={comment.comment_id}
-                      pseudo={article.pseudo}
+                      pseudo={article.User.pseudo}
                       date={comment.created_at}
                       content={comment.content}
                       likes={comment.likes}

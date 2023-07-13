@@ -11,20 +11,20 @@ function ModelArticle({
   content,
   likes,
 }: {
-  article_id: Number;
+  article_id: number;
   manga: String;
   pseudo: String;
-  date: String;
+  date: Date;
   title: String;
   content: String;
-  likes: Number;
+  likes: number;
 }) {
   const dispatch = useAppDispatch();
 
   function handleArticlesLikePlus(
     e: React.MouseEvent<HTMLButtonElement>,
-    articleId: Number,
-    likes: Number
+    articleId: number,
+    likes: number
   ) {
     e.preventDefault();
     const updatedLikes = likes + 1;
@@ -32,7 +32,7 @@ function ModelArticle({
   }
 
   return (
-    <div key={article_id} className="shadow-lg">
+    <div key={article_id.toString()} className="shadow-lg">
       <p className=" inset-0 flex items-center justify-center rounded-t  bg-blue-950 p-2 text-3xl font-bold text-white">
         {manga}
       </p>
