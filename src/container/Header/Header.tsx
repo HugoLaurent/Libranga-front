@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import DropDownButton from '../../components/buttons/DropDownButton';
 import NavigationButton from '../../components/buttons/NavigationButton';
 import { NavLink } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
 
 function Header() {
   const arr = [true, false, false, false, false, false];
   const [style, setStyle] = useState(arr);
   const [dropDown, setDropDown] = useState(true);
   const [text, setText] = useState('Menu');
+  const isLogged = useAppSelector((state) => state.users.isLogged);
 
   const selected = (props: number) => {
     const newArr = [...arr];
@@ -63,30 +65,57 @@ function Header() {
             </NavLink>
           </ul>
           <div>
-            <ul className="hidden flex-auto space-x-2 md:hidden lg:flex">
-              <li>
-                <NavLink to="/login">
-                  <button
-                    type="button"
-                    className="text-gray-600cursor-pointer rounded
+            {isLogged ? (
+              <ul className="hidden flex-auto space-x-2 md:hidden lg:flex">
+                <li>
+                  <NavLink to="/login">
+                    <button
+                      type="button"
+                      className="text-gray-600cursor-pointer rounded
                     border  border-white bg-gray-50 px-3 py-2.5  text-xs font-normal leading-3 shadow-md focus:outline-none"
-                  >
-                    Login
-                  </button>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/signup">
-                  <button
-                    type="button"
-                    className="text-gray-600cursor-pointer rounded border
+                    >
+                      Profile
+                    </button>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/signup">
+                    <button
+                      type="button"
+                      className="text-gray-600cursor-pointer rounded border
                     border-white  bg-blue-950 px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
-                  >
-                    Signup
-                  </button>
-                </NavLink>
-              </li>
-            </ul>
+                    >
+                      Logout
+                    </button>
+                  </NavLink>
+                </li>
+              </ul>
+            ) : (
+              <ul className="hidden flex-auto space-x-2 md:hidden lg:flex">
+                <li>
+                  <NavLink to="/login">
+                    <button
+                      type="button"
+                      className="text-gray-600cursor-pointer rounded
+                    border  border-white bg-gray-50 px-3 py-2.5  text-xs font-normal leading-3 shadow-md focus:outline-none"
+                    >
+                      Login
+                    </button>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/signup">
+                    <button
+                      type="button"
+                      className="text-gray-600cursor-pointer rounded border
+                    border-white  bg-blue-950 px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
+                    >
+                      Signup
+                    </button>
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </div>
         </nav>
         {/* for smaller devcies */}
