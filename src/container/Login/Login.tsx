@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { facts } from '../../assets/facts/facts';
+import { useAppDispatch } from '../../hooks/redux';
+import { resetAddUserStatus } from '../../App/reducers/userReducer';
 function Login() {
+  const dispatch = useAppDispatch();
   const [showpass, setShowPass] = useState(false);
   const [fact, setFact] = useState(0);
+
+  useEffect(() => {
+    // Réinitialiser addUserStatus à false lorsque vous êtes sur la page de connexion
+    dispatch(resetAddUserStatus());
+  }, []);
 
   useEffect(() => {
     const random = Math.floor(Math.random() * facts.length);

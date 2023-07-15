@@ -1,0 +1,41 @@
+/* CSS pour l'animation d'opacité à l'arrivée */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* CSS pour l'animation d'opacité à la sortie */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* CSS pour le composant Alert */
+.translate-hidden {
+  transform: translateY(-100%);
+}
+
+.transition {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+.ease-in-out {
+  animation-timing-function: ease-in-out;
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+}
