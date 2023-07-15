@@ -47,9 +47,9 @@ function Header() {
                 styleIndex={1}
               />
             </NavLink>
-            <NavLink to={'/'}>
+            <NavLink to={'/manga'}>
               <NavigationButton
-                title="Users"
+                title="Manga"
                 onClick={() => selected(2)}
                 style={style}
                 styleIndex={2}
