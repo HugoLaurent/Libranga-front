@@ -84,9 +84,11 @@ function AllArticles({
         <div className="flex w-full flex-wrap gap-4 sm:justify-center ">
           {category === 0 ? (
             articleSlice.map((article) => (
-              <div className="md:min-[20%]: sm:w-96 md:w-1/4">
+              <div
+                key={article.article_id}
+                className="md:min-[20%]: sm:w-96 md:w-1/4"
+              >
                 <ModelArticle
-                  key={article.article_id}
                   article_id={article.article_id}
                   manga={article.manga}
                   pseudo={article.pseudo}
@@ -112,9 +114,8 @@ function AllArticles({
             ))
           ) : articlesChoosenSlice && articlesChoosenSlice.length > 0 ? (
             articlesChoosenSlice.map((article) => (
-              <div className="w-1/3">
+              <div key={article.article_id} className="w-1/3">
                 <ModelArticle
-                  key={article.article_id}
                   article_id={article.article_id}
                   manga={article.manga}
                   pseudo={article.User.pseudo}
