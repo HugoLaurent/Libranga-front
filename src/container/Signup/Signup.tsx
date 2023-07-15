@@ -4,11 +4,11 @@ import { facts } from '../../assets/facts/facts';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addUser, resetAddUserStatus } from '../../App/reducers/userReducer';
 import Alert from '../../components/Alert/Alert';
-import { set } from 'immer/dist/internal';
 
 function Signup() {
   const dispatch = useAppDispatch();
-  let addUserStatus = useAppSelector((state) => state.users.addUserSuccess);
+  let addUserSuccess = useAppSelector((state) => state.users.addUserSuccess);
+
   const [showpass, setShowPass] = useState(false);
   const [fact, setFact] = useState(0);
   const [alert, setAlert] = useState(false);
@@ -21,6 +21,7 @@ function Signup() {
     age: 0,
     role: 1,
   });
+  const [redirectToLogin, setRedirectToLogin] = useState(false); // Nouvel état pour la redirection
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,11 +36,18 @@ function Signup() {
     setFact(facts[random]);
   }, []);
 
+  useEffect(() => {
+    if (addUserSuccess) {
+      setRedirectToLogin(true); // Définir la valeur de redirection sur true
+    }
+  }, [addUserSuccess]);
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(addUser(formData));
-    if (addUserStatus) {
-      return <Navigate to="/login" />;
+    if (addUserSuccess) {
+      console.log('success');
+      setRedirectToLogin(true); // Définir la valeur de redirection sur true
     } else {
       setAlert(true);
       setTimeout(() => {
@@ -48,7 +56,6 @@ function Signup() {
       }, 3000);
     }
   }
-  console.log(addUserStatus);
 
   return (
     <>
@@ -59,7 +66,8 @@ function Signup() {
         setAlert={setAlert}
         color="bg-red-500"
       />
-
+      {redirectToLogin && <Navigate to="/login" />}{' '}
+      {/* Redirection vers "/login" si redirectToLogin est true */}
       <div className="flex flex-col-reverse items-center justify-center px-4 py-9 2xl:container md:flex md:flex-row md:px-10 md:py-12 xl:px-20 2xl:mx-auto">
         <div className="w-full rounded bg-white px-2 py-6 shadow-lg sm:px-6 sm:py-10 md:w-1/2 lg:w-5/12 lg:px-10 xl:w-1/3">
           <p
@@ -73,15 +81,7 @@ function Signup() {
             className="mt-4 text-sm font-medium leading-none text-gray-500 focus:outline-none"
           >
             You already have an account?{' '}
-            <NavLink to="/login">
-              <a
-                href="javascript:void(0)"
-                className="cursor-pointer text-sm font-medium leading-none text-gray-800 hover:text-gray-500 hover:underline focus:text-gray-500 focus:underline focus:outline-none"
-              >
-                {' '}
-                Log in here
-              </a>
-            </NavLink>
+            <NavLink to="/login">Log in here</NavLink>
           </p>
           <form onSubmit={handleSubmit}>
             <div className="mt-6 w-full">

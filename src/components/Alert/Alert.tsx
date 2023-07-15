@@ -13,8 +13,6 @@ function Alert({
   message: string;
   color: string;
 }) {
-  console.log(color);
-
   return (
     <div className="top-50 absolute right-0">
       {alert && (
