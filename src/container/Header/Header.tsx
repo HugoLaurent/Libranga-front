@@ -19,7 +19,7 @@ function Header() {
   };
 
   return (
-    <div className="2xl:container 2xl:mx-auto">
+    <div className="3xl:container 2xl:mx-auto">
       <div className="rounded bg-white px-7 py-5 shadow-lg">
         <nav className="flex justify-between">
           <div className="flex items-center space-x-3 pr-6 lg:pr-16">
@@ -28,7 +28,7 @@ function Header() {
             </h2>
           </div>
           {/* For medium and plus sized devices */}
-          <ul className="hidden flex-auto space-x-2 lg:flex">
+          <ul className="hidden flex-auto gap-4 space-x-2 lg:flex">
             <NavLink to="/">
               <NavigationButton
                 title="Home"
@@ -65,22 +65,26 @@ function Header() {
           <div>
             <ul className="hidden flex-auto space-x-2 md:hidden lg:flex">
               <li>
-                <button
-                  type="button"
-                  className="text-gray-600cursor-pointer rounded
-                  border  border-white bg-gray-50 px-3 py-2.5  text-xs font-normal leading-3 shadow-md focus:outline-none"
-                >
-                  Login
-                </button>
+                <NavLink to="/login">
+                  <button
+                    type="button"
+                    className="text-gray-600cursor-pointer rounded
+                    border  border-white bg-gray-50 px-3 py-2.5  text-xs font-normal leading-3 shadow-md focus:outline-none"
+                  >
+                    Login
+                  </button>
+                </NavLink>
               </li>
               <li>
-                <button
-                  type="button"
-                  className="text-gray-600cursor-pointer rounded border
-                  border-white  bg-blue-950 px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
-                >
-                  Signup
-                </button>
+                <NavLink to="/signup">
+                  <button
+                    type="button"
+                    className="text-gray-600cursor-pointer rounded border
+                    border-white  bg-blue-950 px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
+                  >
+                    Signup
+                  </button>
+                </NavLink>
               </li>
             </ul>
           </div>
