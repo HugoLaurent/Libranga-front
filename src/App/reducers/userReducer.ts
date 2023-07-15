@@ -4,11 +4,12 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { log } from 'console';
 
 export const initialState = {
   user: [],
   addUserSuccess: false,
+  logUserSuccess: false,
+  isLogged: false,
 };
 
 export const fetchAllUser = createAsyncThunk('user/fetchAllUser', async () => {
@@ -42,6 +43,16 @@ export const addUser = createAsyncThunk('user/addUser', async (user: any) => {
   return response.data;
 });
 
+export const logUser = createAsyncThunk('user/logUser', async (user: any) => {
+  console.log(user);
+  const response = await axios.post(
+    'http://localhost:3500/api/user/login',
+    user
+  );
+
+  return response.data;
+});
+
 export const resetAddUserStatus = createAction('user/resetAddUserStatus');
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -50,7 +61,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.user = action.payload;
     })
     .addCase(addUser.fulfilled, (state, action) => {
-      state.user.push(action.payload);
       state.addUserSuccess = true;
     })
     .addCase(addUser.rejected, (state, action) => {
@@ -59,6 +69,15 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetAddUserStatus, (state, action) => {
       state.addUserSuccess = false;
+    })
+    .addCase(logUser.fulfilled, (state, action) => {
+      state.user.push(action.payload);
+      state.logUserSuccess = true;
+      state.isLogged = true;
+    })
+    .addCase(logUser.rejected, (state, action) => {
+      state.user.push(action.payload);
+      state.isLogged = false;
     });
 });
 

@@ -14,9 +14,7 @@ function UserContainer() {
   const usersToSort = useAppSelector((state) => state.users.user);
   const users: UserAttributes[] = [...usersToSort];
 
-  users.sort((a, b) => b.articles.length - a.articles.length);
-
-  console.log(users);
+  users.sort((a, b) => b.articles?.length - a.articles?.length);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -30,10 +28,14 @@ function UserContainer() {
       <section className="flex w-3/5 flex-wrap justify-around">
         {users &&
           users.map((user: UserAttributes) => {
-            const totalLikes = user.articles.reduce(
+            const totalLikes = user.articles?.reduce(
               (accumulator, article) => accumulator + article.likes,
               0
             );
+            const totalComments = user.Comments?.length
+              ? user.Comments.length
+              : 0;
+            const totalArticles = user.articles?.length;
 
             return (
               <div
@@ -46,17 +48,17 @@ function UserContainer() {
                   </div>
                   <div className="mt-8 px-6">
                     <div className="pb-1 text-center text-3xl font-bold">
-                      {user.articles.length > 1
-                        ? `${user.articles.length} articles`
-                        : `${user.articles.length} article`}
+                      {user.articles?.length}{' '}
+                      {user.articles?.length === 1 ? 'Article' : 'Articles'}
                     </div>
+
                     <p className="py-3 text-center text-base font-normal text-gray-600">
                       Librangaka since{' '}
                       {new Date(user.created_at ?? '').getFullYear()}
                     </p>
                     <div className="flex flex-col gap-1">
                       <p className="text-center text-base font-normal text-gray-600">
-                        Total Comments: {user.Comments.length}
+                        Total Comments: {totalComments}
                       </p>
                       <p className="text-center text-base font-normal text-gray-600">
                         Total Likes: {totalLikes}
