@@ -55,9 +55,9 @@ function Header() {
                 styleIndex={2}
               />
             </NavLink>
-            <NavLink to={'/'}>
+            <NavLink to={'/create'}>
               <NavigationButton
-                title="Categories"
+                title="Create an article"
                 onClick={() => selected(3)}
                 style={style}
                 styleIndex={3}

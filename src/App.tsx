@@ -8,6 +8,8 @@ import Page404 from './pages/404/Page404';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import Manga from './pages/Manga/Manga';
+import MangaArticles from './components/MangaArticles/MangaArticles';
+import CreateArticle from './components/CreateArticle/CreateArticle';
 
 function App() {
   const location = useLocation();
@@ -20,6 +22,8 @@ function App() {
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/article" element={<Article />} />
+            <Route path="/create" element={<CreateArticle />} />
+            <Route path="/article/:id" element={<MangaArticles />} />
             <Route path="/manga" element={<Manga />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
