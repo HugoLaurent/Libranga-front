@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchAllUser } from '../../App/reducers/userReducer';
 
 import { UserAttributes } from '../../interface';
+import { getDays } from '../../hooks/getDays';
 
 function UserContainer() {
   const dispatch = useAppDispatch();
@@ -27,7 +28,7 @@ function UserContainer() {
       </div>
       <section className="flex w-3/5 flex-wrap justify-around">
         {users &&
-          users.map((user: UserAttributes) => {
+          users.slice(0, 6).map((user: UserAttributes) => {
             const totalLikes = user.articles?.reduce(
               (accumulator, article) => accumulator + article.likes,
               0
@@ -35,7 +36,6 @@ function UserContainer() {
             const totalComments = user.Comments?.length
               ? user.Comments.length
               : 0;
-            const totalArticles = user.articles?.length;
 
             return (
               <div
@@ -53,8 +53,7 @@ function UserContainer() {
                     </div>
 
                     <p className="py-3 text-center text-base font-normal text-gray-600">
-                      Librangaka since{' '}
-                      {new Date(user.created_at ?? '').getFullYear()}
+                      Librangaka since {getDays(user.created_at)}
                     </p>
                     <div className="flex flex-col gap-1">
                       <p className="text-center text-base font-normal text-gray-600">
