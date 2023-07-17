@@ -12,6 +12,8 @@ import {
 function CreateArticle() {
   const dispatch = useAppDispatch();
   const [showMessage, setShowMessage] = useState(false);
+  const userId = useAppSelector((state) => state.users.userId);
+  console.log(userId);
 
   const [manga, setManga] = useState('');
   const [listManga, setListManga] = useState<MangaAttributes[]>([]);
@@ -23,7 +25,7 @@ function CreateArticle() {
     content: '',
     category_id: 0,
     manga: '',
-    user_id: 1,
+    user_id: userId,
     likes: 0,
     edited: false,
     url: url,

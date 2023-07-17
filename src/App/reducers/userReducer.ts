@@ -10,6 +10,7 @@ export const initialState = {
   addUserSuccess: false,
   logUserSuccess: false,
   isLogged: false,
+  userId: 0,
 };
 
 export const fetchAllUser = createAsyncThunk('user/fetchAllUser', async () => {
@@ -38,15 +39,12 @@ export const addUser = createAsyncThunk('user/addUser', async (user: any) => {
       'http://localhost:3500/api/user/create',
       user
     );
-
-    // Dispatch additional actions if needed
-
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 400) {
       const errorMessage = error.response.data.message;
-      console.log(errorMessage); // Affiche le message d'erreur dans la console
-      throw new Error(errorMessage); // Lance une erreur pour gérer le message d'erreur dans votre code client
+
+      throw new Error(errorMessage);
     }
     throw new Error(
       "Une erreur s'est produite lors de l'ajout de l'utilisateur."
@@ -83,6 +81,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.addUserSuccess = false;
     })
     .addCase(logUser.fulfilled, (state, action) => {
+      state.userId = action.payload.user_id;
       state.user.push(action.payload);
       state.logUserSuccess = true;
       state.isLogged = true;
