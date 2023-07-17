@@ -17,6 +17,7 @@ function MostLikedArticle() {
   ) as ArticleAttributes[];
   const articlesSorted = [...articles].sort((a, b) => b.likes - a.likes);
   const followingArticles = articlesSorted.slice(0, 3) as ArticleAttributes[];
+  console.log(followingArticles);
 
   return (
     <>
@@ -31,6 +32,7 @@ function MostLikedArticle() {
               {followingArticles.map((article) => (
                 <ModelArticle
                   key={article.article_id}
+                  url={article.url}
                   article_id={article.article_id}
                   manga={article.manga}
                   pseudo={article.pseudo}

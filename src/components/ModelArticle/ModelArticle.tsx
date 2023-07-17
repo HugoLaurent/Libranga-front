@@ -10,6 +10,7 @@ function ModelArticle({
   title,
   content,
   likes,
+  url,
 }: {
   article_id: number;
   manga: String;
@@ -18,6 +19,7 @@ function ModelArticle({
   title: String;
   content: String;
   likes: number;
+  url: String;
 }) {
   const dispatch = useAppDispatch();
 
@@ -33,9 +35,16 @@ function ModelArticle({
 
   return (
     <div key={article_id.toString()} className="shadow-lg">
-      <p className=" inset-0 flex items-center justify-center rounded-t  bg-blue-950 p-2 text-3xl font-bold text-white">
-        {manga}
-      </p>
+      <div className="relative h-32">
+        <img
+          src={url}
+          alt=""
+          className="h-full w-full rounded-t object-cover object-center"
+        />
+        <p className=" absolute inset-0 flex items-center justify-center rounded-t  bg-blue-950/50 p-2 text-3xl font-bold text-white">
+          {manga}
+        </p>
+      </div>
 
       <div className="flex w-full justify-between bg-indigo-700 px-4 py-2">
         <p className="text-sm font-semibold tracking-wide text-white">

@@ -70,6 +70,7 @@ function Article() {
             {categoriesList &&
               categoriesList.map((item) => (
                 <DropDownButton
+                  key={item.category_id}
                   title={item.name}
                   onClick={(e) =>
                     handleClickedCategory(e, item.category_id, item.name)

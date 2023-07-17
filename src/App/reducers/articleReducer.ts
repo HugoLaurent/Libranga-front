@@ -41,10 +41,27 @@ export const articleLiked = createAsyncThunk(
   }
 );
 
+export const createArticle = createAsyncThunk(
+  'article/createArticle',
+
+  async (article: ArticleAttributes) => {
+    console.log(article);
+
+    const response = await axios.post(
+      'http://localhost:3500/api/article/create',
+      article
+    );
+    return response.data;
+  }
+);
+
 const articleReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchArticle.fulfilled, (state, action) => {
       state.article = action.payload;
+    })
+    .addCase(createArticle.fulfilled, (state, action) => {
+      state.article.push(action.payload);
     })
     .addCase(articleLiked.fulfilled, (state, action) => {
       const newLikes = action.payload.likes;
