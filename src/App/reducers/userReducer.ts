@@ -33,18 +33,28 @@ export const fetchAllUser = createAsyncThunk('user/fetchAllUser', async () => {
 });
 
 export const addUser = createAsyncThunk('user/addUser', async (user: any) => {
-  const response = await axios.post(
-    'http://localhost:3500/api/user/create',
-    user
-  );
+  try {
+    const response = await axios.post(
+      'http://localhost:3500/api/user/create',
+      user
+    );
 
-  // Dispatch additional actions if needed
+    // Dispatch additional actions if needed
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 400) {
+      const errorMessage = error.response.data.message;
+      console.log(errorMessage); // Affiche le message d'erreur dans la console
+      throw new Error(errorMessage); // Lance une erreur pour gérer le message d'erreur dans votre code client
+    }
+    throw new Error(
+      "Une erreur s'est produite lors de l'ajout de l'utilisateur."
+    );
+  }
 });
 
 export const logUser = createAsyncThunk('user/logUser', async (user: any) => {
-  console.log(user);
   const response = await axios.post(
     'http://localhost:3500/api/user/login',
     user

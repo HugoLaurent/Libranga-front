@@ -8,6 +8,7 @@ import Alert from '../../components/Alert/Alert';
 function Signup() {
   const dispatch = useAppDispatch();
   let addUserSuccess = useAppSelector((state) => state.users.addUserSuccess);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [showpass, setShowPass] = useState(false);
   const [fact, setFact] = useState(0);
@@ -44,24 +45,26 @@ function Signup() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(addUser(formData));
-    if (addUserSuccess) {
-      console.log('success');
-      setRedirectToLogin(true); // Définir la valeur de redirection sur true
-    } else {
-      setAlert(true);
-      setTimeout(() => {
-        setAlert(false);
-        dispatch(resetAddUserStatus());
-      }, 3000);
-    }
+    dispatch(addUser(formData))
+      .unwrap()
+      .then((data) => {
+        setRedirectToLogin(true);
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+        setAlert(true);
+        setTimeout(() => {
+          setAlert(false);
+          dispatch(resetAddUserStatus());
+        }, 3000);
+      });
   }
 
   return (
     <>
       <Alert
         type="Failed"
-        message="Something wrong happened! "
+        message={errorMessage}
         alert={alert}
         setAlert={setAlert}
         color="bg-red-500"
