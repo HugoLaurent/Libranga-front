@@ -53,6 +53,8 @@ export const logUser = createAsyncThunk('user/logUser', async (user: any) => {
   return response.data;
 });
 
+export const logOutUser = createAction('user/logOutUser');
+
 export const resetAddUserStatus = createAction('user/resetAddUserStatus');
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -78,6 +80,10 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(logUser.rejected, (state, action) => {
       state.user.push(action.payload);
       state.isLogged = false;
+    })
+    .addCase(logOutUser, (state, action) => {
+      state.isLogged = false;
+      state.logUserSuccess = false;
     });
 });
 

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import DropDownButton from '../../components/buttons/DropDownButton';
 import NavigationButton from '../../components/buttons/NavigationButton';
 import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { logOutUser } from '../../App/reducers/userReducer';
 
 function Header() {
+  const dispatch = useAppDispatch();
   const arr = [true, false, false, false, false, false];
   const [style, setStyle] = useState(arr);
   const [dropDown, setDropDown] = useState(true);
@@ -19,6 +21,10 @@ function Header() {
     newArr[props] = true;
     setStyle(newArr);
   };
+
+  function logout(): any {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <div className="3xl:container 2xl:mx-auto">
@@ -55,20 +61,22 @@ function Header() {
                 styleIndex={2}
               />
             </NavLink>
-            <NavLink to={'/create'}>
-              <NavigationButton
-                title="Create an article"
-                onClick={() => selected(3)}
-                style={style}
-                styleIndex={3}
-              />
-            </NavLink>
+            {isLogged && (
+              <NavLink to={'/create'}>
+                <NavigationButton
+                  title="Create an article"
+                  onClick={() => selected(3)}
+                  style={style}
+                  styleIndex={3}
+                />
+              </NavLink>
+            )}
           </ul>
           <div>
             {isLogged ? (
               <ul className="hidden flex-auto space-x-2 md:hidden lg:flex">
                 <li>
-                  <NavLink to="/login">
+                  <NavLink to="/profile">
                     <button
                       type="button"
                       className="text-gray-600cursor-pointer rounded
@@ -79,8 +87,9 @@ function Header() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/signup">
+                  <NavLink to="/">
                     <button
+                      onClick={() => dispatch(logOutUser())}
                       type="button"
                       className="text-gray-600cursor-pointer rounded border
                     border-white  bg-blue-950 px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
@@ -177,34 +186,71 @@ function Header() {
                   }}
                 />
               </NavLink>
-              <DropDownButton
-                title="Users"
-                onClick={() => {
-                  setText('Users');
-                  setDropDown(!dropDown);
-                }}
-              />
-              <DropDownButton
-                title="Categories"
-                onClick={() => {
-                  setText('Categories');
-                  setDropDown(!dropDown);
-                }}
-              />
-              <DropDownButton
-                title="Signup"
-                onClick={() => {
-                  setText('Signup');
-                  setDropDown(!dropDown);
-                }}
-              />
-              <DropDownButton
-                title="Login"
-                onClick={() => {
-                  setText('Login');
-                  setDropDown(!dropDown);
-                }}
-              />
+              <NavLink to="manga">
+                <DropDownButton
+                  title="Mangas"
+                  onClick={() => {
+                    setText('Mangas');
+                    setDropDown(!dropDown);
+                  }}
+                />
+              </NavLink>
+              <NavLink to="create">
+                {isLogged && (
+                  <DropDownButton
+                    title="Create an article"
+                    onClick={() => {
+                      setText('Create an article');
+                      setDropDown(!dropDown);
+                    }}
+                  />
+                )}
+              </NavLink>
+              <NavLink to="signup">
+                {!isLogged && (
+                  <DropDownButton
+                    title="Signup"
+                    onClick={() => {
+                      setText('Signup');
+                      setDropDown(!dropDown);
+                    }}
+                  />
+                )}
+              </NavLink>
+              <NavLink to="login">
+                {!isLogged && (
+                  <DropDownButton
+                    title="Login"
+                    onClick={() => {
+                      setText('Login');
+                      setDropDown(!dropDown);
+                    }}
+                  />
+                )}
+              </NavLink>
+              <NavLink to="profile">
+                {isLogged && (
+                  <DropDownButton
+                    title="Profile"
+                    onClick={() => {
+                      setText('Profile');
+                      setDropDown(!dropDown);
+                    }}
+                  />
+                )}
+              </NavLink>
+              <NavLink to="/home">
+                {isLogged && (
+                  <DropDownButton
+                    title="Logout"
+                    onClick={() => {
+                      setDropDown(!dropDown);
+                      dispatch(logOutUser());
+                      setText('Menu');
+                    }}
+                  />
+                )}
+              </NavLink>
             </ul>
           </div>
         </div>
