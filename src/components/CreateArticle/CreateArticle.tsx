@@ -6,6 +6,8 @@ import { createArticle } from '../../App/reducers/articleReducer';
 
 function CreateArticle() {
   const dispatch = useAppDispatch();
+  const [showMessage, setShowMessage] = useState(false);
+
   const [manga, setManga] = useState('');
   const [listManga, setListManga] = useState([]);
   const [url, setUrl] = useState('');
@@ -23,19 +25,28 @@ function CreateArticle() {
   function handleChange(e, key) {
     e.preventDefault();
     const { value } = e.target;
-    const selectedManga = listManga.find((manga) => manga.title === value);
-    console.log(selectedManga);
-    const imageUrl = selectedManga ? selectedManga.images.jpg.image_url : '';
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [key]: key === 'category_id' ? parseInt(value) : value,
-      url: imageUrl, // Ajouter l'URL de l'image dans formData
     }));
   }
 
-  function handleSubmit(e) {
+  async function fetchImageUrl(formData) {
+    const selectedManga = listManga.find(
+      (manga) => manga.title === formData.manga
+    );
+    const imageUrl = selectedManga ? selectedManga.images.jpg.image_url : '';
+    return imageUrl;
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(createArticle(formData));
+
+    const imageUrl = await fetchImageUrl(formData);
+    const updatedFormData = { ...formData, url: imageUrl };
+
+    dispatch(createArticle(updatedFormData));
   }
 
   async function researchManga(e) {
@@ -44,7 +55,7 @@ function CreateArticle() {
       `https://api.jikan.moe/v4/manga?q=${manga}`
     );
     setListManga(response.data.data);
-    console.log(response.data.data);
+    setShowMessage(true);
   }
 
   useEffect(() => {
@@ -91,10 +102,11 @@ function CreateArticle() {
                   id="manga"
                   aria-labelledby="manga"
                   className="mt-2 w-full rounded border bg-gray-200 py-3 pl-3 text-xs font-medium leading-none text-gray-800 placeholder-gray-800"
-                  placeholder="Choose a manga"
                 >
-                  <option defaultValue="" disabled>
-                    Choose a manga
+                  <option value="" disabled>
+                    {showMessage
+                      ? 'You can now choose a manga'
+                      : 'Search a manga first'}
                   </option>
                   {listManga.map((manga) => (
                     <option key={manga.mal_id} value={manga.title}>
@@ -157,8 +169,10 @@ function CreateArticle() {
                   className="mt-2 h-fit w-full rounded border bg-gray-200 py-3 pl-3 text-xs font-medium leading-none text-gray-800 placeholder-gray-800"
                   placeholder="Choose a category"
                 >
-                  <option defaultValue="0" disabled>
-                    Choose a category
+                  <option value={0} disabled>
+                    {formData.category_id === 0
+                      ? 'Choose a category'
+                      : 'Shonen'}
                   </option>
                   {categories.categories &&
                     categories.categories.map((category) => (
