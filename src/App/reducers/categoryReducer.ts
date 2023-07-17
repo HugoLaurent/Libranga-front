@@ -1,27 +1,37 @@
+import {
+  createAsyncThunk,
+  createReducer,
+  PayloadAction,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
-import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
+import { ArticleAttributes } from '../../interface';
 
-export const initialState = {
+interface CategoryState {
+  categories: any[]; // Utilisation du type any pour l'instant
+  categoryWithArticle: ArticleAttributes[];
+  // Autres propriétés de l'état
+}
+
+export const initialState: CategoryState = {
   categories: [],
   categoryWithArticle: [],
+  // Initialiser les autres propriétés de l'état
 };
 
 export const fetchCategory = createAsyncThunk(
   'category/fetchCategory',
   async () => {
-    const response = await axios.get(`http://localhost:3500/api/category/all`);
+    const response = await axios.get('http://localhost:3500/api/category/all');
     return response.data;
   }
 );
 
 export const fetchCategoryWithArticle = createAsyncThunk(
   'category/fetchCategoryWithArticle',
-  async (id) => {
+  async (id: number) => {
     const response = await axios.get(
       `http://localhost:3500/api/category/${id}`
     );
-    console.log(response.data);
-
     return response.data;
   }
 );

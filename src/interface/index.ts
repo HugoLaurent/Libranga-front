@@ -1,15 +1,17 @@
 export interface ArticleAttributes {
-  Comments: any;
-  date: string | number | Date;
-  created_at: string | number | Date;
-  article_id: number;
-  manga: string;
+  url: string;
   title: string;
   content: string;
-  likes: number;
-  edited?: boolean | null;
+  category_id: number;
+  manga: string;
   user_id: number;
-  pseudo: string;
+  likes: number;
+  edited: boolean;
+  Comments: CommentAttributes[];
+  date: string;
+  created_at: string;
+  article_id: number;
+  pseudots: string[];
 }
 
 export interface UserAttributes {
@@ -32,4 +34,25 @@ export interface CommentAttributes {
   content: string;
   created_at: string;
   pseudo: string;
+}
+
+export interface MangaAttributes {
+  mal_id: number;
+  title: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+}
+
+export interface FormDataAttributes {
+  title: string;
+  content: string;
+  category_id: number;
+  manga: string;
+  user_id: number;
+  likes: number;
+  edited: boolean;
+  url: string;
 }

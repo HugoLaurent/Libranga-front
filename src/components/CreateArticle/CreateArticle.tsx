@@ -3,15 +3,22 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchCategory } from '../../App/reducers/categoryReducer';
 import { createArticle } from '../../App/reducers/articleReducer';
+import {
+  MangaAttributes,
+  FormDataAttributes,
+  ArticleAttributes,
+} from '../../interface';
 
 function CreateArticle() {
   const dispatch = useAppDispatch();
   const [showMessage, setShowMessage] = useState(false);
 
   const [manga, setManga] = useState('');
-  const [listManga, setListManga] = useState([]);
-  const [url, setUrl] = useState('');
-  const [formData, setFormData] = useState({
+  const [listManga, setListManga] = useState<MangaAttributes[]>([]);
+  const [url] = useState('');
+  const [formData, setFormData] = useState<
+    FormDataAttributes & Partial<ArticleAttributes>
+  >({
     title: '',
     content: '',
     category_id: 0,
@@ -22,8 +29,10 @@ function CreateArticle() {
     url: url,
   });
 
-  function handleChange(e, key) {
-    e.preventDefault();
+  function handleChange(
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
+    key: keyof FormDataAttributes
+  ) {
     const { value } = e.target;
 
     setFormData((prevFormData) => ({
@@ -32,7 +41,7 @@ function CreateArticle() {
     }));
   }
 
-  async function fetchImageUrl(formData) {
+  async function fetchImageUrl(formData: FormDataAttributes) {
     const selectedManga = listManga.find(
       (manga) => manga.title === formData.manga
     );
@@ -40,16 +49,19 @@ function CreateArticle() {
     return imageUrl;
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const imageUrl = await fetchImageUrl(formData);
-    const updatedFormData = { ...formData, url: imageUrl };
+    const updatedFormData: any = {
+      ...formData,
+      url: imageUrl,
+    };
 
     dispatch(createArticle(updatedFormData));
   }
 
-  async function researchManga(e) {
+  async function researchManga(e: any) {
     setManga(e.target.value);
     const response = await axios.get(
       `https://api.jikan.moe/v4/manga?q=${manga}`
@@ -91,7 +103,7 @@ function CreateArticle() {
                     onChange={(e) => setManga(e.target.value)}
                     placeholder="Search"
                   ></input>
-                  <button type="button" onClick={researchManga}>
+                  <button type="button" onClick={(e) => researchManga(e)}>
                     Go
                   </button>
                 </div>
@@ -147,7 +159,7 @@ function CreateArticle() {
                   value={formData.content}
                   id="content"
                   name="content"
-                  onChange={(e) => handleChange(e, 'content')}
+                  onChange={(e: any) => handleChange(e, 'content')}
                   aria-labelledby="content"
                   className="mt-2 h-fit w-full rounded border bg-gray-200 py-3 pl-3 text-xs font-medium leading-none text-gray-800 placeholder-gray-800"
                   placeholder="Write your article"
