@@ -28,7 +28,7 @@ function MostLikedArticle() {
           </h1>
 
           <div>
-            <div className="flex flex-col gap-4 ">
+            <div className="flex gap-4 ">
               {followingArticles.map((article) => (
                 <ModelArticle
                   key={article.article_id}

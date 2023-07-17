@@ -119,6 +119,7 @@ function AllArticles({
                 <ModelArticle
                   article_id={article.article_id}
                   manga={article.manga}
+                  url={article.url}
                   pseudo={article.User.pseudo}
                   date={article.created_at}
                   title={article.title}

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 function Manga() {
   const [topManga, setTopManga] = useState([]);
@@ -51,7 +52,8 @@ function Manga() {
   }
 
   return (
-    <div className="w-full py-8">
+    <div className="flex w-full flex-col items-center py-8">
+      <SearchBar />
       <div className="flex-wrap items-center justify-center lg:flex">
         {topMangaSlice.map((manga) => (
           <div
