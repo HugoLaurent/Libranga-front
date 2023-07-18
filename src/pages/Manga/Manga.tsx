@@ -2,8 +2,10 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import SearchBar from '../../components/SearchBar/SearchBar';
 
+import { MangaState } from '../../interface';
+
 function Manga() {
-  const [topManga, setTopManga] = useState([]);
+  const [topManga, setTopManga] = useState<MangaState>([]);
 
   const [paginationMin, setPaginationMin] = useState(0);
   const [paginationMax, setPaginationMax] = useState(6);
@@ -55,7 +57,7 @@ function Manga() {
     <div className="flex w-full flex-col items-center py-8">
       <SearchBar />
       <div className="flex-wrap items-center justify-center lg:flex">
-        {topMangaSlice.map((manga) => (
+        {topMangaSlice.map((manga: any) => (
           <div
             key={manga.mal_id}
             className="mb-7 rounded bg-white p-6 shadow lg:mb-0 lg:mr-7 lg:w-4/12"

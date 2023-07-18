@@ -56,3 +56,17 @@ export interface FormDataAttributes {
   edited: boolean;
   url: string;
 }
+
+export interface MangaState {
+  length: number;
+  slice(paginationMin: number, paginationMax: number): unknown;
+  mal_id: number;
+  title: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+  title_japanese: string;
+  synopsis: string;
+}
