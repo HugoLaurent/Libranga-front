@@ -7,6 +7,7 @@ import axios from 'axios';
 import { ArticleAttributes } from '../../interface';
 
 interface ArticleState {
+  filter(arg0: (articleTest: any) => any): unknown;
   article: ArticleAttributes[];
 }
 

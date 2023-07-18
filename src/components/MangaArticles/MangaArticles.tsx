@@ -1,51 +1,66 @@
+import { useParams } from 'react-router-dom';
+import ModelArticle from '../ModelArticle/ModelArticle';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { fetchArticle } from '../../App/reducers/articleReducer';
+import ModelComment from '../ModelComment/ModelComment';
+
 function MangaArticles() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchArticle());
+  }, []);
+
+  const { id } = useParams<{ id: string }>();
+  console.log(id);
+
+  const articles = useAppSelector((state) => state.articles.article);
+  console.log(articles);
+
+  const filteredArticles = articles.filter((article) =>
+    article.manga.toLowerCase().includes(id)
+  );
+  console.log(filteredArticles);
+
   return (
-    <>
-      <div className="px-6 py-20 2xl:container lg:px-10 xl:px-20 2xl:mx-auto">
-        <div className="justify-center lg:flex">
-          <div className="md:w-10/12 lg:w-8/12 2xl:w-7/12">
-            <img
-              src="https://i.ibb.co/ZY43FRd/blog-1-desktop.png"
-              alt="fingerprint recognition"
-              className="w-auto lg:w-full"
+    <div className="w-full px-4 py-12 xl:px-0">
+      <h1 className="text-center text-3xl tracking-wider text-gray-900 lg:text-4xl">
+        All articles
+      </h1>
+
+      <div className="flex w-full flex-wrap gap-4 sm:justify-center">
+        {filteredArticles.map((filteredArticle) => (
+          <div
+            key={filteredArticle.article_id}
+            className="md:min-[20%] sm:w-96 md:w-1/4"
+          >
+            <ModelArticle
+              article_id={filteredArticle.article_id}
+              manga={filteredArticle.manga}
+              url={filteredArticle.url}
+              pseudo={filteredArticle.pseudo}
+              date={filteredArticle.created_at}
+              title={filteredArticle.title}
+              content={filteredArticle.content}
+              likes={filteredArticle.likes}
             />
-            <div className="mt-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <p className="text-base leading-4 text-gray-500">5 feb</p>
-                  <p className="ml-12 text-base leading-none text-gray-500">
-                    5 min read
-                  </p>
+            <div className="flex flex-col flex-wrap">
+              {filteredArticle.Comments.map((comment) => (
+                <div key={comment.comment_id} className="flex shadow-lg">
+                  <ModelComment
+                    comment_id={comment.comment_id}
+                    pseudo={comment.pseudo}
+                    date={comment.created_at}
+                    content={comment.content}
+                    likes={comment.likes}
+                  />
                 </div>
-                <div className="flex items-center">
-                  <svg
-                    width={64}
-                    height={2}
-                    viewBox="0 0 64 2"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M64 1H0" stroke="#6B7280" />
-                  </svg>
-                  <p className="ml-2 text-base leading-none text-gray-500">
-                    Jeff Bill
-                  </p>
-                </div>
-              </div>
-              <h1 className="mt-4 text-2xl font-semibold text-gray-800 lg:text-3xl">
-                Chip fingerprint technology for secure transaction
-              </h1>
-              <p className="mt-2 text-base leading-6 text-gray-600">
-                The emerge of internet of Things has brought in, rather
-                urgently, a need for low-cost security technology. While
-                passwords and other such forms of encription are software base,
-                there is also a need for security level
-              </p>
+              ))}
             </div>
           </div>
-        </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 
