@@ -14,6 +14,7 @@ function Manga() {
   const [search, setSearch] = useState('top/manga');
   const [paginationMin, setPaginationMin] = useState(0);
   const [paginationMax, setPaginationMax] = useState(6);
+  const [alert, setAlert] = useState(false);
 
   const articles = useAppSelector((state) => state.articles.article);
 
@@ -66,6 +67,19 @@ function Manga() {
     dispatch(fetchArticle());
   }, []);
 
+  function handleChange(e: any) {
+    setValueOnChange(e.target.value);
+    if (e.target.value === '') {
+      setAlert(!alert);
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000);
+      return;
+    } else {
+      setSearch(valueOnChange);
+    }
+  }
+
   return (
     <div className="flex w-full flex-col items-center py-8">
       <div className="mb-3">
@@ -81,7 +95,7 @@ function Manga() {
           />
 
           <button
-            onClick={() => setSearch(valueOnChange)}
+            onClick={handleChange}
             className="hover:bg-primary-700 focus:bg-primary-700 active:bg-primary-800 relative z-[2] flex items-center rounded-r bg-blue-950 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg"
             type="button"
             id="button-addon1"
@@ -102,6 +116,7 @@ function Manga() {
             </svg>
           </button>
         </div>
+        {alert && <p className="text-red-500">Please look for a manga</p>}
       </div>
 
       <div className="flex flex-col items-center ">

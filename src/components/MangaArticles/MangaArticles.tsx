@@ -32,7 +32,7 @@ function MangaArticles() {
         {filteredArticles.map((filteredArticle) => (
           <div
             key={filteredArticle.article_id}
-            className="md:min-[20%] sm:w-96 md:w-1/4"
+            className="md:min-[40%] sm:w-96 md:w-1/2"
           >
             <ModelArticle
               article_id={filteredArticle.article_id}
