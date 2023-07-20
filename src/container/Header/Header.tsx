@@ -134,7 +134,7 @@ shadow-md focus:outline-none"
             type="button"
             onKeyDown={() => setDropDown(!dropDown)}
             onClick={() => setDropDown(!dropDown)}
-            className="flex w-full cursor-pointer items-center justify-between rounded bg-blue-950 px-4 py-3 text-white"
+            className="flex w-full cursor-pointer items-center justify-between rounded bg-secondary px-4 py-3 text-white"
           >
             <div className="flex space-x-2">
               <p className="cursor-pointer text-sm font-normal leading-3 duration-300 hover:bg-gray-800 focus:outline-none ">
@@ -166,7 +166,7 @@ shadow-md focus:outline-none"
               id="list"
               className={`${
                 dropDown ? 'hidden' : 'block'
-              } absolute top-2 w-full rounded text-base font-normal leading-4 shadow-md`}
+              } absolute top-2 z-10 w-full rounded text-base font-normal leading-4 shadow-md`}
             >
               <NavLink to="/">
                 <DropDownButton
