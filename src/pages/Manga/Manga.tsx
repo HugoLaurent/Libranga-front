@@ -6,6 +6,7 @@ import { MangaState } from '../../interface';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchArticle } from '../../App/reducers/articleReducer';
 import { Link, Navigate } from 'react-router-dom';
+import Modal from '../../components/Modal/Modal';
 
 function Manga() {
   const dispatch = useAppDispatch();
@@ -14,6 +15,8 @@ function Manga() {
   const [paginationMin, setPaginationMin] = useState(0);
   const [paginationMax, setPaginationMax] = useState(6);
   const [alert, setAlert] = useState(false);
+  const [selectedManga, setSelectedManga] = useState<MangaState>([]);
+  const [open, setOpen] = useState(false);
 
   const articles = useAppSelector((state) => state.articles.article);
 
@@ -150,10 +153,18 @@ function Manga() {
                   {manga.synopsis}
                 </p>
               </div>
-
-              <Link to={`/article/${manga.title.toLowerCase()}`}>
-                Read all articles
-              </Link>
+              <div className="flex">
+                <button
+                  onClick={() => {
+                    setSelectedManga(manga), setOpen(!open);
+                  }}
+                >
+                  Read More
+                </button>
+                <Link to={`/article/${manga.title.toLowerCase()}`}>
+                  Read all articles
+                </Link>
+              </div>
             </article>
           ))}
         </div>
@@ -169,6 +180,15 @@ function Manga() {
           up
         </button>
       </div>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        id={selectedManga.mal_id}
+        image={selectedManga.images?.jpg.image_url}
+        title={selectedManga.title}
+        title_japanese={selectedManga.title_japanese}
+        synopsis={selectedManga.synopsis}
+      />
     </section>
   );
 }

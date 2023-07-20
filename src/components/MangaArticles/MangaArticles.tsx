@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchArticle } from '../../App/reducers/articleReducer';
 import ModelComment from '../ModelComment/ModelComment';
+import axios from 'axios';
 
 function MangaArticles() {
   const dispatch = useAppDispatch();
@@ -12,15 +13,12 @@ function MangaArticles() {
   }, []);
 
   const { id } = useParams<{ id: string }>();
-  console.log(id);
 
   const articles = useAppSelector((state) => state.articles.article);
-  console.log(articles);
 
   const filteredArticles = articles.filter((article) =>
     article.manga.toLowerCase().includes(id)
   );
-  console.log(filteredArticles);
 
   return (
     <div className="w-full px-4 py-12 xl:px-0">
@@ -32,7 +30,7 @@ function MangaArticles() {
         {filteredArticles.map((filteredArticle) => (
           <div
             key={filteredArticle.article_id}
-            className="md:min-[40%] sm:w-96 md:w-1/2"
+            className="md:min-[40%] sm:w-96 md:w-1/4"
           >
             <ModelArticle
               article_id={filteredArticle.article_id}
