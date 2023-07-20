@@ -4,6 +4,7 @@ import NavigationButton from '../../components/buttons/NavigationButton';
 import { NavLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logOutUser } from '../../App/reducers/userReducer';
+import mainLogo from '../../assets/image/mainLogo.png';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -22,18 +23,14 @@ function Header() {
     setStyle(newArr);
   };
 
-  function logout(): any {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <div className="3xl:container 2xl:mx-auto">
       <div className="rounded bg-white px-7 py-5 shadow-lg">
         <nav className="flex justify-between">
           <div className="flex items-center space-x-3 pr-6 lg:pr-16">
-            <h2 className="text-2xl font-normal leading-6 text-gray-800">
-              Libranga
-            </h2>
+            <NavLink to="/">
+              <img className="w-44" src={mainLogo} alt="" />
+            </NavLink>
           </div>
           {/* For medium and plus sized devices */}
           <ul className="hidden flex-auto gap-4 space-x-2 lg:flex">
@@ -92,7 +89,7 @@ function Header() {
                       onClick={() => dispatch(logOutUser())}
                       type="button"
                       className="text-gray-600cursor-pointer rounded border
-                    border-white  bg-blue-950 px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
+                    border-white  bg-tertiary px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
                     >
                       Logout
                     </button>
@@ -105,8 +102,10 @@ function Header() {
                   <NavLink to="/login">
                     <button
                       type="button"
-                      className="text-gray-600cursor-pointer rounded
-                    border  border-white bg-gray-50 px-3 py-2.5  text-xs font-normal leading-3 shadow-md focus:outline-none"
+                      className="w-fit cursor-pointer whitespace-nowrap rounded border border-secondary
+px-3 py-2.5 font-mainFont text-lg
+font-bold uppercase leading-3 shadow-md
+focus:outline-none "
                     >
                       Login
                     </button>
@@ -116,8 +115,10 @@ function Header() {
                   <NavLink to="/signup">
                     <button
                       type="button"
-                      className="text-gray-600cursor-pointer rounded border
-                    border-white  bg-blue-950 px-3 py-2.5 text-xs  font-normal leading-3 text-white shadow-md focus:outline-none"
+                      className=" font-semi w-fit cursor-pointer whitespace-nowrap rounded border bg-tertiary
+px-3 py-2.5 font-mainFont text-lg
+uppercase leading-3 text-white
+shadow-md focus:outline-none"
                     >
                       Signup
                     </button>

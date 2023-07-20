@@ -21,9 +21,12 @@ function NavigationButton({
         }}
         className={`${
           style[styleIndex]
-            ? 'whitespace-nowrap border border-blue-950 bg-blue-950 text-white'
-            : 'border border-white bg-gray-50 text-gray-600'
-        }  w-fit cursor-pointer whitespace-nowrap rounded px-3  py-2.5 text-xs font-normal leading-3 shadow-md focus:outline-none `}
+            ? '  bg-primary    text-white'
+            : ' border-secondary bg-gray-50   text-gray-600'
+        }  w-fit cursor-pointer whitespace-nowrap rounded border px-3
+py-2.5 font-mainFont text-lg font-bold
+uppercase leading-3 shadow-md
+focus:outline-none `}
       >
         {title}
       </button>

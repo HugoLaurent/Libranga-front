@@ -34,7 +34,10 @@ function ModelArticle({
   }
 
   return (
-    <div key={article_id.toString()} className="shadow-lg">
+    <div
+      key={article_id.toString()}
+      className="rounded border border-double border-secondary shadow-lg"
+    >
       <div className="relative h-32">
         <img
           src={url}
@@ -46,7 +49,7 @@ function ModelArticle({
         </p>
       </div>
 
-      <div className="flex w-full justify-between bg-indigo-700 px-4 py-2">
+      <div className="flex w-full justify-between bg-secondary px-4 py-2">
         <p className="text-sm font-semibold tracking-wide text-white">
           {pseudo}
         </p>

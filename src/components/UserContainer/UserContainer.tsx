@@ -42,8 +42,8 @@ function UserContainer() {
                 key={user.user_id}
                 className=" mt-16 h-fit  sm:w-3/4 md:w-2/5 lg:w-2/5 xl:w-1/3 xl:max-w-sm"
               >
-                <div className="overflow-hidden rounded bg-white shadow-md">
-                  <div className="bg-blue-800 pb-1 text-center text-3xl font-bold text-white">
+                <div className="overflow-hidden rounded border border-secondary bg-white shadow-md">
+                  <div className="  bg-secondary pb-1 text-center text-3xl font-bold text-white">
                     {user.pseudo}
                   </div>
                   <div className="mt-8 px-6">

@@ -21,7 +21,7 @@ function MostLikedArticle() {
 
   return (
     <>
-      <div className="flex-2 px-4 py-12 xl:px-0">
+      <div className="px-4 py-12 xl:px-0">
         <div className="container mx-auto">
           <h1 className="text-center text-3xl tracking-wider text-gray-900 lg:text-4xl">
             Most liked article
