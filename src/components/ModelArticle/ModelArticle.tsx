@@ -1,6 +1,6 @@
 import { articleLiked } from '../../App/reducers/articleReducer';
 import like from '../../assets/favicon/like.png';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 function ModelArticle({
   article_id,
@@ -22,7 +22,7 @@ function ModelArticle({
   url: String;
 }) {
   const dispatch = useAppDispatch();
-
+  const isLogged = useAppSelector((state) => state.users.isLogged);
   function handleArticlesLikePlus(
     e: React.MouseEvent<HTMLButtonElement>,
     articleId: number,
@@ -77,7 +77,7 @@ function ModelArticle({
             </button>
           </p>
         </div>
-        <p className="text-right">Write a comment</p>
+        {isLogged && <p className="text-right">Write a comment</p>}
       </div>
     </div>
   );
