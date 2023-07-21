@@ -10,6 +10,7 @@ import Signup from './pages/Signup/Signup';
 import Manga from './pages/Manga/Manga';
 import MangaArticles from './components/MangaArticles/MangaArticles';
 import CreateArticle from './components/CreateArticle/CreateArticle';
+import UserDashBoard from './components/Dashboard/UserDashBoard';
 
 function App() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function App() {
             <Route path="/manga" element={<Manga />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="dashboard" element={<UserDashBoard />} />
             <Route path="*" element={<Page404 />} />
           </Routes>
         </CSSTransition>

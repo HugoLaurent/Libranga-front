@@ -73,7 +73,7 @@ function Header() {
             {isLogged ? (
               <ul className="hidden flex-auto space-x-2 md:hidden lg:flex">
                 <li>
-                  <NavLink to="/profile">
+                  <NavLink to="/dashboard">
                     <button
                       type="button"
                       className="text-gray-600cursor-pointer rounded
@@ -229,7 +229,7 @@ shadow-md focus:outline-none"
                   />
                 )}
               </NavLink>
-              <NavLink to="profile">
+              <NavLink to="dashboard">
                 {isLogged && (
                   <DropDownButton
                     title="Profile"

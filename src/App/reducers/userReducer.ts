@@ -11,6 +11,8 @@ export const initialState = {
   logUserSuccess: false,
   isLogged: false,
   userId: 0,
+  userName: '',
+  isAdmin: 1,
 };
 
 export const fetchAllUser = createAsyncThunk('user/fetchAllUser', async () => {
@@ -82,6 +84,7 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(logUser.fulfilled, (state, action) => {
       state.userId = action.payload.user_id;
+      state.userName = action.payload.pseudo;
       state.user.push(action.payload);
       state.logUserSuccess = true;
       state.isLogged = true;

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { articleLiked } from '../../App/reducers/articleReducer';
 import like from '../../assets/favicon/like.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -23,6 +24,14 @@ function ModelArticle({
 }) {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.users.isLogged);
+  const user = useAppSelector((state) => state.users.userName);
+  const role = useAppSelector((state) => state.users.role);
+  const [isAdmin, setIsAdmin] = useState(false);
+  console.log(user);
+  if (role === 2) {
+    setIsAdmin(true);
+  }
+
   function handleArticlesLikePlus(
     e: React.MouseEvent<HTMLButtonElement>,
     articleId: number,
@@ -50,8 +59,11 @@ function ModelArticle({
       </div>
 
       <div className="flex w-full justify-between bg-secondary px-4 py-2">
+        {(user === pseudo || isAdmin) && (
+          <i className="font-thin">Article number {article_id}</i>
+        )}
         <p className="text-sm font-semibold tracking-wide text-white">
-          {pseudo}
+          {pseudo}{' '}
         </p>
         <p className="text-sm font-semibold tracking-wide text-white">
           {new Date(date).toLocaleDateString()}

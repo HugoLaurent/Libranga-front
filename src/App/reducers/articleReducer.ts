@@ -56,6 +56,39 @@ export const createArticle = createAsyncThunk(
   }
 );
 
+export const deleteArticle = createAsyncThunk(
+  'article/deleteArticle',
+  async (articleId: number) => {
+    const response = await axios.delete(
+      `http://localhost:3500/api/article/${articleId}/delete`
+    );
+    return response.data;
+  }
+);
+
+export const modifyTitleArticle = createAsyncThunk(
+  'article/modifyTitleArticle',
+  async ({ articleId, title }) => {
+    // Utiliser un objet avec les deux propriétés
+    const response = await axios.put(
+      `http://localhost:3500/api/article/${articleId}/update`,
+      { title } // Envoyer l'objet avec la propriété "title"
+    );
+    return response.data;
+  }
+);
+export const modifyContentArticle = createAsyncThunk(
+  'article/modifyContentArticle',
+  async ({ articleId, content }) => {
+    // Utiliser un objet avec les deux propriétés
+    const response = await axios.put(
+      `http://localhost:3500/api/article/${articleId}/update`,
+      { content } // Envoyer l'objet avec la propriété "title"
+    );
+    return response.data;
+  }
+);
+
 const articleReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchArticle.fulfilled, (state, action) => {
@@ -64,6 +97,29 @@ const articleReducer = createReducer(initialState, (builder) => {
     .addCase(createArticle.fulfilled, (state, action) => {
       state.article.push(action.payload);
     })
+    .addCase(deleteArticle.fulfilled, (state, action) => {
+      const articleId = action.payload.article_id;
+      state.article = state.article.filter(
+        (article) => article.article_id !== articleId
+      );
+    })
+    .addCase(modifyTitleArticle.fulfilled, (state, action) => {
+      const modifiedArticle = action.payload;
+      state.article = state.article.map((article) =>
+        article.article_id === modifiedArticle.article_id
+          ? { ...article, title: modifiedArticle.title }
+          : article
+      );
+    })
+    .addCase(modifyContentArticle.fulfilled, (state, action) => {
+      const modifiedArticle = action.payload;
+      state.article = state.article.map((article) =>
+        article.article_id === modifiedArticle.article_id
+          ? { ...article, content: modifiedArticle.content }
+          : article
+      );
+    })
+
     .addCase(articleLiked.fulfilled, (state, action) => {
       const newLikes = action.payload.likes;
       const articleId = action.payload.article_id;
